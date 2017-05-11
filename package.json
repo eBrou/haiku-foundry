@@ -15,8 +15,7 @@
     "server": "babel-node server.js",
     "lint": "eslint .",
     "client": "babel-node start-client.js",
-    "test": "mocha",
-    "install": "cd client && npm run build && cd .."
+    "test": "mocha"
   },
   "devDependencies": {
     "chai": "^3.5.0",
