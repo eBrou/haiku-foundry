@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: S5EPzGKsb0Y8mUgxoWrYOEKWjTYQ/uH8sqvrp9PI5iFXYsruLeJjkMKGCgAGlZmoPzAXAQTQ8l3xR9EmdlsNykBNveM+FhwFdEYlu3bIBQCSsqUGmzN/fGrIhRU2cCSU94U8yNZC1kgUICSmFWcQB0vwR6XYyIehZeiYG+yh7uJOs2M9Rkyg+iUEgCrbhUgIQgTBPrdcYwp57iMMATH6duThfwQtzdc98ckgZG3wmvJpkETHRDqUvbVCSCUNJUwj8ezGZkPTnrf2u8u1l4mFKJqBKkXk++a185oWjtrqL6Wz+Or+nVjYS2zv/6bgo9mQVDZzhJq8wpjjtVMsJHAgEGDZ2pvJA+OqiJRmAUja4ikZzJya6FKOt7pSU8JuCCjVNWlWWc6DHgGLzjZrSWhpyZc+33iw8NB7KXx2naNMsjIo0AibC58SohcKDDLpw3lqH18ddgySxOIpx72/nPq74FO9EHWhKaOHe8YyQyH/s4tg2KQrqDTi4wqqH5ePq4gVuSBXyum4cls88fiuh+FJ5nFMQqS9DdbOwvwGUcBQjPInCOslU6Ft3RIsEFvDGzPF63ydYMYWawWZj7qR7XTc876Aivn8mN2VTEeWKzFOy2abw8qrHj5bqVyByqxfK++E3VewEjy2+CFIKoz7m6qxx/WBDtDbunoPko2Vuwk/+oo=
+  app: arcane-meadow-96698
+  on:
+    repo: eBrou/haiku-foundry
