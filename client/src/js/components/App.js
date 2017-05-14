@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
-import logo from '../../logo.svg';
-import mockData from '../../mock-data.js';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import '../../css/App.css';
+import Header from './header';
+import Landing from './landing';
+import Login from './login';
+import Compose from './compose';
 
 
-const haikus = mockData.haikus.map((haiku, i) => {
-  return <p key={i}>{haiku.date}: {haiku.text}</p>
-})
+// TODO: add sidebar
 
-class App extends Component {
-  render() {
+export default function App (props) {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        {haikus}
-      </div>
-    );
-  }
-}
+        <Router >
+          <div className="App">
+            <Header />
 
-export default App;
+            <main>
+              <Switch>
+                <Route exact path="/" component={Landing} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/compose" component={Compose} />
+              </Switch>
+            </main>
+
+            <footer className="footer">
+              this is a footer
+            </footer>
+          </div>
+        </Router>
+    );
+}
