@@ -8,4 +8,4 @@ const haikuSchema = mongoose.Schema({
 // create the model for users and expose it to our app
 const Haiku = mongoose.model('Haiku', haikuSchema);
 
-module.exports = { Session };
+module.exports = { Haiku };
