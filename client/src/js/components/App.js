@@ -18,8 +18,8 @@ export default function App (props) {
             <main>
               <Switch>
                 <Route exact path="/" component={Landing} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/compose" component={Compose} />
+                <Route path="/login" component={Login} />
+                <Route path="/compose" component={Compose} />
               </Switch>
             </main>
 
