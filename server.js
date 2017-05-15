@@ -77,7 +77,7 @@ app.get('/api/test', (req, res) => {
 
 
 app.get('/*', (req, res) => {
-  res.sendFile('./client/public/index.html')
+  res.sendFile('client/public/index.html')
 })
 
 
