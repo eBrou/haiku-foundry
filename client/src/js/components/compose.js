@@ -6,8 +6,11 @@ export default function Compose (props) {
   return (
     <div className='compose'>
       <Sidebar />
-
-      <h1>this is in the compose component</h1>
+      <div className='textAreaWrapper'>
+        <textarea rows="4" cols="50">I am a textarea</textarea>
+        <button>Save</button>
+        <button>Share</button>
+      </div>
     </div>
   )
 }

@@ -3,7 +3,11 @@ require('dotenv').config();
 // const { mockData } = require ('./client/src/mock-data.js');
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 const app = express();
+const { Haiku } = require('./app/models/haikus.js');
+
+mongoose.Promise = global.Promise;
 
 const mockData = {
   haikus: [
@@ -65,13 +69,6 @@ app.set('port', (process.env.PORT || 3001));
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
-
-// trying to get client-side routing to work
-// app.use(express.static(path.join(__dirname, 'build')));
-//
-// app.get('/*', function (req, res) {
-//    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-//  });
 
 app.get('/api/test', (req, res) => {
     // res.send('hello')

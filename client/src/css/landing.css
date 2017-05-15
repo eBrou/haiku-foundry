@@ -1,0 +1,35 @@
+.landingDivs {
+
+  position: relative;
+  height: 250px;
+  width: 600px;
+  margin: 40px auto 0 auto;
+}
+
+
+.landingDiv3 {
+  margin-bottom: 50px;
+}
+
+.rock-garden {
+  float: right;
+}
+
+.logos {
+  height: 250px;
+  border: 2px solid rgb(57, 57, 55);
+  border-radius: 100%;
+}
+
+.landingTextDivs {
+  width: 300px;
+  margin-left: 30px;
+  position: absolute;
+  display: inline-block;
+  height: 100%;
+}
+
+/*h3 {
+  display: inline;
+  text-align: center;
+}*/

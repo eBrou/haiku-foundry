@@ -1,0 +1,37 @@
+a {
+  text-decoration: none;
+}
+
+.header {
+  text-align: center;
+  height: 60px;
+  font-family: 'Nunito', sans-serif;
+  text-decoration: none;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(134, 179, 133, 0.61), rgba(22, 143, 158, .061)
+    );
+}
+
+.header h1 {
+  margin-top: 0px;
+  padding-top: 10px;
+  /*display: inline-block;*/
+}
+
+.headerOptions {
+  position: absolute;
+  height: 30px;
+  width: 100px;
+  top: 20px;
+}
+
+.loginHeader {
+  right: 100px;
+}
+
+.optionHeader {
+  right: 10px;
+
+}

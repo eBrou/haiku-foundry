@@ -5,6 +5,7 @@ import Header from './header';
 import Landing from './landing';
 import Login from './login';
 import Compose from './compose';
+import Footer from './footer';
 
 
 // TODO: add sidebar
@@ -14,7 +15,6 @@ export default function App (props) {
         <Router >
           <div className="App">
             <Header />
-
             <main>
               <Switch>
                 <Route exact path="/" component={Landing} />
@@ -23,9 +23,7 @@ export default function App (props) {
               </Switch>
             </main>
 
-            <footer className="footer">
-              this is a footer
-            </footer>
+            <Footer />
           </div>
         </Router>
     );
