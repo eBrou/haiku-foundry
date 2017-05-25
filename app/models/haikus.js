@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const haikuSchema = mongoose.Schema({
-  user: String,
+  userId: String,
   date: String,
-  text: String,
+  haikuText: String,
 });
 
 // create the model for users and expose it to our app
