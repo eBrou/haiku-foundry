@@ -1,30 +1,48 @@
 import 'isomorphic-fetch';
+import firebase from 'firebase';
 
-export const SEARCH_ADDRESS_GOOGLE_SUCCESS = 'SEARCH_ADDRESS_GOOGLE_SUCCESS';
-export const SEARCH_ADDRESS_GOOGLE_ERROR = 'SEARCH_ADDRESS_GOOGLE_ERROR';
-export const USE_CURRENT_LOCATION_SUCCESS = 'USE_CURRENT_LOCATION_SUCCESS';
-export const USE_CURRENT_LOCATION_ERROR = 'USE_CURRENT_LOCATION_ERROR';
-export const GET_YOU_TUBE_PLAYLIST_SUCCESS = 'GET_YOU_TUBE_PLAYLIST_SUCCESS';
-export const GET_YOU_TUBE_PLAYLIST_ERROR = 'GET_YOU_TUBE_PLAYLIST_ERROR';
+// export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+// export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+// export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+// export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
+export const SIGNIN_ERROR = 'SIGNIN_ERROR';
+export const SAVE_HAIKU_SUCCESS = 'SAVE_HAIKU_SUCCESS';
+export const SAVE_HAIKU_ERROR = 'SAVE_HAIKU_ERROR';
+
 
 
 // action creators
-export const searchAddressGoogleSuccess = officialsData => ({
-  type: SEARCH_ADDRESS_GOOGLE_SUCCESS,
-  officialsData,
-});
+// export const signUpSuccess = () => ({
+//   type: SIGNUP_SUCCESS,
+// });
+//
+// export const signUpError = (message) => ({
+//   type: SIGNUP_ERROR,
+//   message,
+// });
+//
+// export const logInSuccess = () => ({
+//   type: LOGIN_SUCCESS,
+// });
+//
+// export const logInError = (message) => ({
+//   type: LOGIN_ERROR,
+//   message,
+// });
 
-export const searchAddressGoogleError = address => ({
-  type: SEARCH_ADDRESS_GOOGLE_ERROR,
-  address,
-});
+export const signInSuccess = () => ({
+  type: SIGNIN_SUCCESS,
+})
 
-export const getYouTubePlaylistSuccess = (playlist, office) => ({
-  type: GET_YOU_TUBE_PLAYLIST_SUCCESS,
-  playlist,
-  office,
-});
+export const signInError = () => ({
+  type: SIGNIN_ERROR,
+})
 
-export const getYouTubePlaylistError = () => ({
-  type: GET_YOU_TUBE_PLAYLIST_ERROR,
-});
+// ASync Actions
+
+export const saveHaiku = (haiku) => {
+  return (dispatch, getState) => {
+    
+  }
+}
