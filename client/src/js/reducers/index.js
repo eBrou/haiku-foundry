@@ -6,63 +6,59 @@ const initialState = {
   loginErrorMessage: 'test',
   userId: '',
   email: '',
-  tester: 'test'
+  tester: 'test',
+  savedHaikus: [],
+  haikuIdToEdit: null,
+  haikuTextToEdit: null,
+  errors: null,
 }
 
 export const mainReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    // case actions.SIGNUP_SUCCESS: {
-    //   console.log("SIGNUP_SUCCESS triggered")
-    //   return Object.assign({}, state, {
-    //   });
-    // }
-    // case actions.SIGNUP_ERROR: {
-    //   console.log("SIGNUP_ERROR triggered")
-    //   return Object.assign({}, state, {
-    //     loginErrorMessage: "there is a signup error"
-    //   });
-    // }
-    // case actions.LOGIN_SUCCESS: {
-    //   console.log(SignInSuccess)
-    //   return Object.assign({}, state, {
-    //   });
-    // }
-    // case actions.LOGIN_ERROR: {
-    //   return Object.assign({}, state, {
-    //     loginErrorMessage: "there is a login error"
-    //   });
-    // }
     case actions.SIGNIN_SUCCESS: {
-      console.log('signInSuccess triggered')
-      // let user;
-      // return new Promise((resolve) => {
-      //   resolve(user = firebase.auth().currentUser)
-      // })
-
-      // .then(() => {
-      //   console.log('.then triggered')
-      //   console.log(user);
+      // console.log('signInSuccess triggered')
       const user = firebase.auth().currentUser
-      console.log(user);
+      // console.log(user);
         return Object.assign({}, state, {
           email: user.email,
           userId: user.uid,
-          tester: "blah"
-      //   });
+          tester: "blah",
       })
-
-
-
-      // var user = firebase.auth().currentUser;
-      // console.log(user)
-      // let userId = '';
-      // let email = '';
-      // console.log(email)
-      // console.log(userId)
-
-
     }
+    case actions.SIGNIN_ERROR: {
+      console.log("SIGNUP_ERROR triggered")
+      console.log(action.errorMessage)
+      return Object.assign({}, state, {
+        errors: action.errorMessage
+      });
+    }
+    case actions.SAVE_HAIKU_SUCCESS: {
+      // console.log("SAVE_HAIKU_SUCCESS triggered")
+      return Object.assign({}, state, {
+      });
+    }
+    case actions.GET_HAIKUS_SUCCESS: {
+      // console.log("hello")
+      // console.log(action.haikus);
+      return Object.assign({}, state, {
+        savedHaikus: action.haikus
+      });
+    }
+    case actions.OPEN_EDIT_HAIKU: {
+      console.log('edit haiku triggered');
+      return Object.assign({}, state, {
+        haikuIdToEdit: action.haikuId,
+        haikuTextToEdit: action.haikuText
+      })
+    }
+    case actions.SAVE_EDIT_HAIKU_SUCCESS: {
+      console.log('save edit haiku triggered');
+      return Object.assign({}, state, {
+
+      })
+    }
+
     default:
       return state;
   }

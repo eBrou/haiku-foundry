@@ -1,3 +1,17 @@
 .hideSavedButton {
   margin-left: 30px;
 }
+
+pencil {
+  /*opacity: 0;
+  transition: all 0.2s linear;
+  position: absolute;
+  top: 60px;
+  right: 10px;*/
+  color: red
+}
+
+.savedHaiku:hover pencil {
+  opacity: 1;
+  color: rgba(101, 198, 147, 0.7)
+}

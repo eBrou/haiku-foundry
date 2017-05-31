@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 
 const { Haiku } = require('./app/models/haikus.js');
@@ -14,58 +15,6 @@ const { PORT } = require('./config/port-config.js');
 
 mongoose.Promise = global.Promise;
 
-// const mockData = {
-//   haikus: [
-//     {
-//     id: "1111111",
-//     user: "1234567",
-//     text: "A hungry monkey / rub a dub dub jumping tree / bananas for me",
-//     date: "5/11/17"
-//     },
-//     {
-//     id: "2222222",
-//     user: "1234567",
-//     text: "Cherry blossoms glow / I fall in love with living / Darkness lies behind.",
-//     date: "5/10/17"
-//     },
-//     {
-//     id: "3333333",
-//     user: "1234567",
-//     text: "Cherry blossoms glow / I fall in love with living / Darkness lies behind.",
-//     date: "5/9/17"
-//     },
-//     {
-//     id: "4444444",
-//     user: "1234567",
-//     text: "Sitting in this seat / flying high above the clouds / I am a Greek God",
-//     date: "5/8/17"
-//     },
-//     {
-//     id: "5555555",
-//     user: "1234567",
-//     text: "Sitting in this seat / flying high above the clouds / I am a Greek God",
-//     date: "5/7/17"
-//     },
-//     {
-//     id: "6666666",
-//     user: "1234567",
-//     text: "Monster at the door / Just as Mummy described, yes / The monster is real",
-//     date: "5/6/17"
-//     },
-//     {
-//     id: "7777777",
-//     user: "1234567",
-//     text: "Monster at the door / Just as Mummy described, yes / The monster is real",
-//     date: "5/5/17"
-//     },
-//     {
-//     id: "8888888",
-//     user: "1234567",
-//     text: "I want to lie on/ The grass but it is cold and/ I have allergies",
-//     date: "5/4/17"
-//     }
-//   ]
-// }
 //
 //// before adding runServer & closeServer
 // app.set('port', (process.env.PORT || 3001));
@@ -76,7 +25,7 @@ mongoose.Promise = global.Promise;
 // app.use(morgan('dev')); // log every request to the console
 // app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
-
+app.use(cors());
 // required for passport
 // app.use(session({
 //   secret: 'cookie_secret',

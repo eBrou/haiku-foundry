@@ -5,6 +5,20 @@ import { Redirect } from 'react-router-dom';
 import * as actions from '../actions/index';
 import '../../css/login.css';
 
+const errorMessageGen = (errorCode) => {
+  switch (errorCode) {
+    case "auth/wrong-password":
+      return "Invalid password";
+    case "auth/user-not-found":
+      return "User not found";
+    case "auth/invalid-email":
+      return "Invalid email";
+
+    default:
+      return null;
+  }
+}
+
 
 export class Login extends React.Component {
   constructor(props) {
@@ -37,17 +51,24 @@ export class Login extends React.Component {
     const password = this.state.password;
     event.preventDefault();
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('user successfully signed up');
-
-        this.setState({redirectTo: true});
-      })
+      .then(
+        response => {
+          console.log('user successfully signed up');
+          this.setState({redirectTo: true});
+        },
+        error => {
+          const errorMessage = errorMessageGen(error.code);
+          this.props.dispatch(actions.signInError(errorMessage))
+          throw error
+        }
+      )
       .then(() => this.setState({redirectTo: true}))
-      .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-      })
+      .catch(error => console.log(error));
+      // .catch(function(error) {
+      //   var errorCode = error.code;
+      //   var errorMessage = error.message;
+      //   console.log(errorCode, errorMessage)
+      // })
   }
 
   handleLogin(event) {
@@ -55,16 +76,25 @@ export class Login extends React.Component {
     const password = this.state.password;
     event.preventDefault();
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(
+        response => {
         console.log('user successfully logged in');
         this.props.dispatch(actions.signInSuccess());
-      })
+        },
+        error => {
+          const errorMessage = errorMessageGen(error.code);
+          this.props.dispatch(actions.signInError(errorMessage))
+          throw error
+        }
+      )
       .then(() => this.setState({redirectTo: true}))
-      .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-      })
+      .catch(error => console.log(error));
+      // .catch(function(error) {
+      //   var errorCode = error.code;
+      //   var errorMessage = error.message;
+      //   console.log(errorCode, errorMessage)
+      //   this.props.dispatch(actions.signInError(errorMessage));
+      // })
   }
 
   handleLogout(event) {
@@ -105,15 +135,16 @@ export class Login extends React.Component {
             <button className="btn btn-primary log_in_submit" onClick={this.handleLogin}>Log in</button>
             <button className="btn btn-primary sign_out_btn" onClick={this.handleLogout}>Log out</button>
           </form>
+          <p className='signInError'>{this.props.errors}</p>
         </div>
-        <p>{(this.state.redirectTo).toString()}</p>
+
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  loginErrorMessage: state.loginErrorMessage,
+  errors: state.errors,
 });
 
 

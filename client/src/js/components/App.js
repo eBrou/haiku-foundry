@@ -6,6 +6,7 @@ import Header from './header';
 import Landing from './landing';
 import Login from './login';
 import Compose from './compose';
+import Edit from './edit';
 import Footer from './footer';
 
 
@@ -71,6 +72,7 @@ export default class App extends React.Component {
                 <Route exact path="/" component={Landing} />
                 <Route path="/login" component={Login} />
                 <RouteWhenAuthorized path="/compose" component={Compose} />
+                <RouteWhenAuthorized path="/edit" component={Edit} />
               </Switch>
             </main>
 
