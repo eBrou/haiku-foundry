@@ -52,10 +52,10 @@ export const mainReducer = (state = initialState, action) => {
         haikuTextToEdit: action.haikuText
       })
     }
+    //does this need to be here? (no state change)
     case actions.SAVE_EDIT_HAIKU_SUCCESS: {
       console.log('save edit haiku triggered');
       return Object.assign({}, state, {
-
       })
     }
 

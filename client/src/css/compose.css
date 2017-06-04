@@ -1,4 +1,91 @@
 .textAreaWrapper {
-  width: 300px;
-  margin: 0 auto;
+  width: 500px;
+  margin: 0 auto 20px 0;
+}
+
+.haiku_input_divs {
+  text-align: center;
+  width: 1000px;
+  height: auto;
+  margin: 0 auto 25px auto;
+  font-size: 50px;
+  padding: 5px 0;
+  border: 1px dotted blue;
+}
+
+.color_gradient_text {
+  color: black;
+  background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.syllablesDiv {
+  transition: all 0.2s linear;
+  width: 50px;
+  margin: 0 auto 25px auto;
+  font-size: 30px;
+  color: rgb(227, 92, 92);
+}
+
+.green {
+  color: rgb(92, 227, 92);
+}
+
+.logout-button {
+  background-color: rgb(108, 144, 194);
+}
+
+/*styles from twitter button component*/
+.react-sharing-button__link {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  margin: 0.5em;
+  border-radius: 5px;
+  transition: 50ms ease-out;
+  padding: 0.5em 0.75em;
+  line-height: 1.2em;
+}
+
+.react-sharing-button--twitter {
+  background-color: #55acee;
+
+}
+
+.twitter-button-wrapper {
+  display: inline-block;
+
+}
+
+.disabled {
+  opacity: .6;
+  pointer-events: none;
+}
+
+.twitter-button-wrapper a {
+  background-color: #55acee;
+}
+
+.twitter-button-wrapper a:hover {
+  background-color: #2795e9;
+}
+
+
+/*if button wrapper disabled, turn off hover change*/
+.twitter-button-wrapper.disabled a:hover {
+  background-color: #55acee;
+}
+
+
+
+
+.react-sharing-button--twitter.disabled:hover {
+
+}
+
+.disabled:hover {
+  /*opacity: .6;*/
+  /*color: #55acee;*/
+
 }

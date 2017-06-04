@@ -127,7 +127,7 @@ export const saveHaiku = (haiku) => {
     }
     return response;
   }).then(() => {
-    dispatch(saveHaikuSuccess())
+    dispatch(saveHaikuSuccess());
     // make sure latest edit to haiku updated in state
     dispatch(getHaikus());
     })
