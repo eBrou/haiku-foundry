@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Refresh } from 'react-router-dom';
 import firebase from 'firebase';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -33,7 +33,7 @@ export class Sidebar extends React.Component {
   componentDidMount() {
     // call async action to get user's haikus
     // success action will update state with those haikus
-    console.log('componentDidMount happening')
+    // console.log('componentDidMount happening')
     this.props.dispatch(actions.getHaikus())
   }
 
@@ -42,6 +42,8 @@ export class Sidebar extends React.Component {
     this.props.dispatch(actions.openEditHaiku(itemId, haikuText));
     this.setState({redirectTo: true});
   }
+
+
 
   // toggleEditing( itemId ) {
   //   this.setState( { editing: itemId } );
@@ -70,6 +72,7 @@ export class Sidebar extends React.Component {
         {this.state.redirectTo && (
           <Redirect to={'/edit'}/>
         )}
+      
         <RaisedButton
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}

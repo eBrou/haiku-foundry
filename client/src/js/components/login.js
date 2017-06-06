@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import { Redirect } from 'react-router-dom';
 import * as actions from '../actions/index';
 import '../../css/login.css';
+import Header from './header'
 
 const errorMessageGen = (errorCode) => {
   switch (errorCode) {
@@ -114,8 +115,10 @@ export class Login extends React.Component {
     return (
       <div className='login'>
         {this.state.redirectTo && (
-          <Redirect to={'/compose'}/>
+          <Redirect to={'/home'}/>
         )}
+
+        <Header logoutHeader={false}/>
 
         <div className='loginWrapper'>
           <form className="sign_in_form" >
