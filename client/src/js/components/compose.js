@@ -230,7 +230,6 @@ export class Compose extends React.Component {
 
         <div className='textAreaWrapper' >
           <RaisedButton label="Save" disabled={this.state.buttonsDisabled} onClick={this.handleSave} />
-          <RaisedButton onClick={this.handleLogout} label="Logout" />
           <RaisedButton
             href={fullUrl}
             target="_blank"

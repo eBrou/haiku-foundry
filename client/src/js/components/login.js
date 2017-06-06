@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { Redirect } from 'react-router-dom';
 import * as actions from '../actions/index';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import '../../css/login.css';
-import Header from './header'
+import Header from './header';
+import tree from '../../css/images/tree.svg'
+
 
 const errorMessageGen = (errorCode) => {
   switch (errorCode) {
@@ -32,6 +37,7 @@ export class Login extends React.Component {
     }
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleDemoLogin = this.handleDemoLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -75,7 +81,7 @@ export class Login extends React.Component {
   handleLogin(event) {
     const email = this.state.email;
     const password = this.state.password;
-    event.preventDefault();
+    // event.preventDefault();
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(
         response => {
@@ -96,6 +102,14 @@ export class Login extends React.Component {
       //   console.log(errorCode, errorMessage)
       //   this.props.dispatch(actions.signInError(errorMessage));
       // })
+  }
+
+  handleDemoLogin (){
+    this.setState({
+      email: 'test1@test.com',
+      password: 'pw1234',
+    })
+    this.handleLogin();
   }
 
   handleLogout(event) {
@@ -119,27 +133,32 @@ export class Login extends React.Component {
         )}
 
         <Header logoutHeader={false}/>
-
+        <h1 className="get-started-text">Login or sign up to get started </h1>
         <div className='loginWrapper'>
-          <form className="sign_in_form" >
-            <div className="form-group">
-              <label htmlFor="exampleInputEmail1">Email address</label>
-              <input type="text" name="email" className="form-control login_inputs" placeholder="Email"
-                value={this.state.email} onChange={this.handleEmailChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="exampleInputPassword1">Password</label>
-              <input type="password" name="password" className="form-control login_inputs" placeholder="Password"
-                value={this.state.password} onChange={this.handlePasswordChange}
-              />
-            </div>
-            <button className="btn btn-primary sign_up_submit" onClick={this.handleSignUp}>Sign up</button>
-            <button className="btn btn-primary log_in_submit" onClick={this.handleLogin}>Log in</button>
-            <button className="btn btn-primary sign_out_btn" onClick={this.handleLogout}>Log out</button>
-          </form>
-          <p className='signInError'>{this.props.errors}</p>
+          <img src={tree} className='logos tree-logo' alt='tree' />
+          <TextField
+            className="text-fields"
+            hintText="jane_doe@email.com"
+            floatingLabelText="Email"
+            onChange={this.handleEmailChange}
+          />
+          <TextField
+            className="text-fields"
+            floatingLabelText="Password"
+            type="password"
+            onChange={this.handlePasswordChange}
+          />
+          <RaisedButton className="buttons login-button" label="Login"  onClick={this.handleLogin} />
+          <RaisedButton className="buttons sign-up-button" label="Sign Up"  onClick={this.handleSignUp} />
+          <FlatButton
+            className="demo-button"
+            label="or click here for demo login"
+            style={{width: 200, marginLeft: 48, marginTop: 20 }}
+            labelStyle={{fontSize: 10, padding: 10}}
+            onClick={this.handleDemoLogin}
+          />
         </div>
+
 
       </div>
     )

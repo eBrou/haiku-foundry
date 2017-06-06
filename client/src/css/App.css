@@ -1,10 +1,15 @@
+/*body, html {
+  height: 100%;
+  box-sizing: border-box;
+}*/
+
+
 .App {
   height: 100%;
-  /*background-color: rgb(197, 217, 237)*/
-  /*text-align: center;*/
-  /*background-image:
-    linear-gradient(
-      to right,
-      rgba(134, 179, 133, 0.61), rgba(22, 143, 158, .061)
-    );*/
+  background:
+   repeating-radial-gradient(
+     circle at 0 0,
+     white,
+    rgba(224, 247, 250, 0.4) 200px
+   );
 }

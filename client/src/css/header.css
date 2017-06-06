@@ -8,10 +8,6 @@ a {
   font-family: 'Maven Pro', sans-serif;
   text-decoration: none;
   background-image:
-    /*linear-gradient(
-      to right,
-      rgba(134, 179, 133, 0.61), rgba(22, 143, 158, .061)
-    );*/
     linear-gradient(
       to right,
       #4DD0E1, #E0F7FA
