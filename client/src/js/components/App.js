@@ -7,7 +7,9 @@ import Landing from './landing';
 import Login from './login';
 import Compose from './compose';
 import Edit from './edit';
+import Edit2 from './edit2';
 import Footer from './footer';
+import Home from './home';
 
 
 const config = {
@@ -66,13 +68,13 @@ export default class App extends React.Component {
     return (
         <Router >
           <div className="App">
-            <Header />
+
             <main>
               <Switch>
                 <Route exact path="/" component={Landing} />
                 <Route path="/login" component={Login} />
-                <RouteWhenAuthorized path="/compose" component={Compose} />
-                <RouteWhenAuthorized path="/edit" component={Edit} />
+                <RouteWhenAuthorized path="/home" component={Home} />
+                <RouteWhenAuthorized path="/edit" component={Edit2} />
               </Switch>
             </main>
 

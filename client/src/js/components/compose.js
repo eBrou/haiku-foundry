@@ -7,6 +7,7 @@ import 'isomorphic-fetch';
 import * as actions from '../actions/index';
 import '../../css/compose.css';
 import Sidebar from './sidebar';
+import Header from './header';
 import ContentEditable from 'react-contenteditable';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -21,6 +22,7 @@ export class Compose extends React.Component {
     super(props);
     this.state = {
       textArea: 'looking at my desk: / paper, pen, water bottle, / and a grey laptop.',
+      welcomeMsg: 'Write a new haiku...',
       redirectTo: false,
       line1Text: 'a a a a ',
       line2Text: 'b b b b b b ',
@@ -33,7 +35,7 @@ export class Compose extends React.Component {
       syl3Classes: 'syllablesDiv',
       buttonsDisabled: true,
       twitterText: '',
-      twitterAddOns: ' // #Haiku via @haiku_foundry'
+      twitterAddOns: ' //// #Haiku via @haiku_foundry'
     };
     this.handleTextChangeLine1 = this.handleTextChangeLine1.bind(this);
     this.handleTextChangeLine2 = this.handleTextChangeLine2.bind(this);
@@ -47,13 +49,15 @@ export class Compose extends React.Component {
     this.haikuFormat = this.haikuFormat.bind(this);
     this.handleOnKeyUp = this.handleOnKeyUp.bind(this);
     this.haikuSubmitFormatter = this.haikuSubmitFormatter.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleBack = this.handleBack.bind(this);
   }
 
   haikuSubmitFormatter() {
     const line1 = this.state.line1Text;
     const line2 = this.state.line2Text;
     const line3 = this.state.line3Text;
-    return `${line1} / ${line2} / ${line3}`
+    return `${line1} // ${line2} // ${line3}`
   }
 
   handleSave(event) {
@@ -150,52 +154,98 @@ export class Compose extends React.Component {
 
   handleLogout(event) {
     event.preventDefault();
-    firebase.auth().signOut()
-      .then(() => {
-        // console.log('user logged OUT');
-      })
-      .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-      })
+    // firebase.auth().signOut()
+    //   .then(() => {
+    //     // console.log('user logged OUT');
+    //   })
+    //   .catch(function(error) {
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     console.log(errorCode, errorMessage)
+    //   })
+    this.props.dispatch(actions.logOutUser());
+  }
+
+  handleDelete (){
+    // confirmation pop up for delete button
+    const retVal = confirm("Are you sure you'd like to delete this haiku?");
+       if( retVal === true ){
+         this.props.dispatch(actions.deleteHaiku(this.props.haikuId));
+         // immediately redirect to the compose page
+         this.setState({redirectTo: true});
+        //  return true;
+       }
+       else{
+          return false;
+       }
+  }
+
+  handleBack() {
+    this.setState({redirectTo: true});
+  }
+
+  componentDidMount (){
+    // fill in blank lines or haiku to be edited
+    const line1 = this.props.line1 || ''
+    const line2 = this.props.line2 || ''
+    const line3 = this.props.line3 || ''
+    // refresh syllable count and classes for line inputs
+    const syl1 = this.syllableCounter(line1);
+    const syl2 = this.syllableCounter(line2);
+    const syl3 = this.syllableCounter(line3);
+    const classLine1 = this.syllableClassGen(syl1, 1);
+    const classLine2 = this.syllableClassGen(syl2, 2);
+    const classLine3 = this.syllableClassGen(syl3, 3);
+
+    this.setState({
+      line1Text: line1,
+      line2Text: line2,
+      line3Text: line3,
+      line1Syl: syl1,
+      line2Syl: syl2,
+      line3Syl: syl3,
+      syl1Classes: classLine1,
+      syl2Classes: classLine2,
+      syl3Classes: classLine3,
+    })
+
   }
 
 
-
   render () {
-
     const text = `${this.state.twitterText}${this.state.twitterAddOns}`
     const textEncoded = encodeURI(text).replace(/#/g, '%23');
     const fullUrl = `https://twitter.com/intent/tweet/?text=${textEncoded}`
-
-
+    // {this.state.redirectTo && (
+    //   <Refresh />
+    // )}
     return (
       <div className='compose'>
+
+
         {this.state.redirectTo && (
-          <Refresh />
+          <Redirect to={'/home'}/>
         )}
-        <Sidebar />
+
+
         <div className='textAreaWrapper' >
           <RaisedButton label="Save" disabled={this.state.buttonsDisabled} onClick={this.handleSave} />
-
           <RaisedButton onClick={this.handleLogout} label="Logout" />
-          <div className={this.state.buttonsDisabled ? 'twitter-button-wrapper disabled' : 'twitter-button-wrapper'}>
           <RaisedButton
             href={fullUrl}
             target="_blank"
             className="twitter-material-button"
-
             label="Twitter"
             icon={<TwitterIcon />}
             disabled={this.state.buttonsDisabled}
           />
-
-          </div>
-
-
+          {this.props.deleteButton && (
+            <RaisedButton label="Delete" onClick={this.handleDelete} />
+          )}
+          {this.props.backButton && (
+            <RaisedButton label="Go Back" onClick={this.handleBack} />
+          )}
         </div>
-
 
         <ContentEditable
           className="haiku_input_divs haiku_input_div1 color_gradient_text"
@@ -245,7 +295,7 @@ const mapStateToProps = (state, props) => ({
   loginErrorMessage: state.loginErrorMessage,
   email: state.email,
   userId: state.userId,
-  tester: state.tester,
+  haikuId: state.haikuIdToEdit,
 });
 
 export default connect(mapStateToProps)(Compose);

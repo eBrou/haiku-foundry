@@ -16,6 +16,8 @@ export const SAVE_EDIT_HAIKU_SUCCESS = 'SAVE_EDIT_HAIKU_SUCCESS';
 export const SAVE_EDIT_HAIKU_ERROR = 'SAVE_EDIT_HAIKU_ERROR';
 export const DELETE_HAIKU_SUCCESS = 'DELETE_HAIKU_SUCCESS';
 export const DELETE_HAIKU_ERROR = 'DELETE_HAIKU_ERROR';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_ERROR = 'LOGOUT_ERROR';
 
 // action creators
 export const signInSuccess = () => ({
@@ -69,9 +71,27 @@ export const deleteHaikuError = (message) => ({
   message,
 });
 
+export const logOutSuccess = () => ({
+  type: LOGOUT_SUCCESS,
+});
+
+export const logOutError = () => ({
+  type: LOGOUT_ERROR,
+});
+
 
 
 // ASync Actions
+
+// Log Out a user
+export const logOutUser = () => {
+  return (dispatch) => {
+    firebase.auth().signOut()
+    .then(() => dispatch(logOutSuccess()))
+  }
+}
+
+
 // Get User's Haikus for Sidebar
 export const getHaikus = () => {
   return (dispatch, getState) => {

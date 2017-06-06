@@ -1,13 +1,16 @@
 import React from 'react';
+import Header from './header';
 import '../../css/landing.css';
 import crane from '../../css/images/crane.svg'
 import rockGarden from '../../css/images/rock-garden.svg'
 import tree from '../../css/images/tree.svg'
 
 
+
 export default function Landing (props) {
   return (
     <div className='landing'>
+      <Header loginHeader={true}/>
       <div className='landingDivs landingDiv1'>
         <img src={crane} className='logos' alt='crane' />
         <div className='landingTextDivs'>

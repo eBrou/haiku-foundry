@@ -3,10 +3,10 @@ import * as actions from '../actions/index';
 import firebase from 'firebase';
 
 const initialState = {
+  loggedIn: false,
   loginErrorMessage: 'test',
-  userId: '',
-  email: '',
-  tester: 'test',
+  userId: null,
+  email: null,
   savedHaikus: [],
   haikuIdToEdit: null,
   haikuTextToEdit: null,
@@ -21,6 +21,7 @@ export const mainReducer = (state = initialState, action) => {
       const user = firebase.auth().currentUser
       // console.log(user);
         return Object.assign({}, state, {
+          loggedIn: true,
           email: user.email,
           userId: user.uid,
           tester: "blah",
@@ -46,7 +47,7 @@ export const mainReducer = (state = initialState, action) => {
       });
     }
     case actions.OPEN_EDIT_HAIKU: {
-      console.log('edit haiku triggered');
+      // console.log('edit haiku triggered');
       return Object.assign({}, state, {
         haikuIdToEdit: action.haikuId,
         haikuTextToEdit: action.haikuText
@@ -54,9 +55,16 @@ export const mainReducer = (state = initialState, action) => {
     }
     //does this need to be here? (no state change)
     case actions.SAVE_EDIT_HAIKU_SUCCESS: {
-      console.log('save edit haiku triggered');
+      // console.log('save edit haiku triggered');
       return Object.assign({}, state, {
       })
+    }
+    case actions.LOGOUT_SUCCESS: {
+      console.log('logout success happened');
+      return Object.assign({}, state, {
+        loggedIn: false,
+        email: null,
+       })
     }
 
     default:
