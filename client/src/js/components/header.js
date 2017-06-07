@@ -10,10 +10,12 @@ export class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectTo: false,
+      redirectToLogin: false,
+      redirectToLanding: false
     };
     this.handleLogout = this.handleLogout.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleIconClick = this.handleIconClick.bind(this);
   }
 
   handleLogout(event){
@@ -23,15 +25,24 @@ export class Header extends React.Component {
 
   handleLoginClick(){
     this.setState({
-      redirectTo: true,
+      redirectToLogin: true,
+    })
+  }
+
+  handleIconClick(){
+    this.setState({
+      redirectToLanding: true,
     })
   }
 
   render(){
     return (
       <div className='header'>
-        {this.state.redirectTo && (
+        {this.state.redirectToLogin && (
           <Redirect to={'/login'}/>
+        )}
+        {this.state.redirectToLanding && (
+          <Redirect to={'/'}/>
         )}
         <img src={rockGarden} className='logo-header' alt='rock garden' />
         <h1><Link to="/" style={{color: 'white'}}>
@@ -68,4 +79,4 @@ const mapStateToProps = (state, props) => ({
   loggedIn: state.loggedIn,
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect()(Header);

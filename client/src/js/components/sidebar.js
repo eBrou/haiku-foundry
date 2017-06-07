@@ -4,13 +4,14 @@ import { Redirect, Refresh } from 'react-router-dom';
 import firebase from 'firebase';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import mockData from '../../mock-data.js';
 import * as actions from '../actions/index';
 
 const menuStyles = {
-      border: '2px solid #FF9800',
-      backgroundColor: '#ffd699',
+      border: '2px solid #00ACC1',
+      backgroundColor: '#f5f8fa',
       height: '100px',
       whiteSpace: 'normal'
     }
@@ -72,15 +73,22 @@ export class Sidebar extends React.Component {
         {this.state.redirectTo && (
           <Redirect to={'/edit'}/>
         )}
-      
+
         <RaisedButton
-          label="Toggle Drawer"
+          label="Saved Haikus"
           onTouchTap={this.handleToggle}
         />
         <Drawer open={this.state.open}
-          width={400}
+          width={320}
         >
-          <MenuItem>
+          <MenuItem
+
+            style={{
+              height: '80px',
+              backgroundColor: '#4DD0E1',
+              color: 'white',
+            }}
+          >
             Saved Haikus <br></br>
             Click any to edit or share
             <button className="hideSavedButton"

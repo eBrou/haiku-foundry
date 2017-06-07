@@ -2,8 +2,8 @@
 
   position: relative;
   height: 250px;
-  width: 600px;
-  margin: 40px auto 0 auto;
+  width: 700px;
+  margin: 50px auto 40px auto;
 }
 
 
@@ -16,20 +16,55 @@
 }
 
 .logos {
-  height: 250px;
-  border: 2px solid rgb(57, 57, 55);
+  height: 200px;
+  border: 2px solid #4DD0E1;
   border-radius: 100%;
+  margin-top: 25px;
 }
 
 .landingTextDivs {
-  width: 300px;
-  margin-left: 30px;
+
+  width: 400px;
+  margin-left: 150px;
   position: absolute;
   display: inline-block;
   height: 100%;
 }
 
-/*h3 {
-  display: inline;
-  text-align: center;
+.landing-text-div2 {
+  margin-left: 0px;
+}
+
+.landing-text {
+  font-size: 40px;
+  font-family: 'Open Sans', sans-serif;
+  /*font-family: 'Maven Pro', sans-serif;*/
+  font-style: italic;
+  letter-spacing: 0.1em;
+  line-height: 70px;
+  color: #4DD0E1;
+  /*color: #00ACC1;*/
+  /*background: -webkit-linear-gradient(#4DD0E1, #80DEEA);*/
+  /*background: -webkit-linear-gradient(#80DEEA, #00ACC1);*/
+
+  /*-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+  /*text-shadow: .5px .5px .2px #80DEEA;*/
+}
+
+.link-text {
+  font-size: 20px;
+}
+
+
+.landing-break {
+  width: 60%;
+  margin: 0 auto 3px;
+  /*border-bottom: 2px solid #B2EBF2;*/
+  border-bottom: 2px solid #B2EBF2;
+}
+
+/*.login-button-div {
+  width: 250px;
+  margin-right: 150px;
 }*/

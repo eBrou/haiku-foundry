@@ -1,22 +1,20 @@
 footer {
   /*width: 100%;*/
-  position: absolute;
-  right: 0;
+  /*position: absolute;*/
+  /*right: 0;
   bottom: 0;
-  left: 0;
+  left: 0;*/
   padding: 1rem;
   text-align: center;
   height: 20px;
   background-image:
     linear-gradient(
       to right,
-      rgba(134, 179, 133, 0.61), rgba(22, 143, 158, .061)
+      #4DD0E1, #E0F7FA
     );
 
-  /*line-height: 20px;*/
-  /*white-space: nowrap;*/
 }
 
-/*.footerText {
-  padding-top: 10px;
-}*/
+.footerText {
+  color: white;
+}

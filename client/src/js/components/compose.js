@@ -13,7 +13,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { Twitter } from 'react-sharingbuttons';
 import 'react-sharingbuttons/dist/main.css';
-import TwitterIcon from './twitter-icon'
+import TwitterIcon from './twitter-icon';
+import crane from '../../css/images/crane.svg';
+import IconButton from 'material-ui/IconButton';
+import Dialog from 'material-ui/Dialog';
 
 
 
@@ -35,7 +38,9 @@ export class Compose extends React.Component {
       syl3Classes: 'syllablesDiv',
       buttonsDisabled: true,
       twitterText: '',
-      twitterAddOns: ' //// #Haiku via @haiku_foundry'
+      twitterAddOns: ' //// #Haiku via @haiku_foundry',
+      openQuestionDialog: false,
+      openDeleteDialog: false,
     };
     this.handleTextChangeLine1 = this.handleTextChangeLine1.bind(this);
     this.handleTextChangeLine2 = this.handleTextChangeLine2.bind(this);
@@ -49,8 +54,13 @@ export class Compose extends React.Component {
     this.haikuFormat = this.haikuFormat.bind(this);
     this.handleOnKeyUp = this.handleOnKeyUp.bind(this);
     this.haikuSubmitFormatter = this.haikuSubmitFormatter.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleDeleteOpen = this.handleDeleteOpen.bind(this);
     this.handleBack = this.handleBack.bind(this);
+    this.focus = this.focus.bind(this);
+    this.handleQuestionOpen = this.handleQuestionOpen.bind(this);
+    this.handleQuestionClose = this.handleQuestionClose.bind(this);
+    this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
+    this.handleDeleteCancel = this.handleDeleteCancel.bind(this);
   }
 
   haikuSubmitFormatter() {
@@ -68,9 +78,13 @@ export class Compose extends React.Component {
     this.setState({line1Text: null,
       line2Text: null,
       line3Text: null,
-      line1Syl: null,
-      line2Syl: null,
-      line3Syl: null})
+      line1Syl: 0,
+      line2Syl: 0,
+      line3Syl: 0,
+      syl1Classes: 'syllablesDiv',
+      syl2Classes: 'syllablesDiv',
+      syl3Classes: 'syllablesDiv',
+                  })
   }
 
   handleShare(event) {
@@ -87,7 +101,6 @@ export class Compose extends React.Component {
     }
     return "syllablesDiv"
   }
-
 
 
   // uses syllable component but applies to each word individually for total line tally
@@ -166,22 +179,43 @@ export class Compose extends React.Component {
     this.props.dispatch(actions.logOutUser());
   }
 
-  handleDelete (){
-    // confirmation pop up for delete button
-    const retVal = confirm("Are you sure you'd like to delete this haiku?");
-       if( retVal === true ){
-         this.props.dispatch(actions.deleteHaiku(this.props.haikuId));
-         // immediately redirect to the compose page
-         this.setState({redirectTo: true});
-        //  return true;
-       }
-       else{
-          return false;
-       }
+  handleDeleteOpen (){
+    // // confirmation pop up for delete button
+    // const retVal = confirm("Are you sure you'd like to delete this haiku?");
+    //    if( retVal === true ){
+    //      this.props.dispatch(actions.deleteHaiku(this.props.haikuId));
+    //      // immediately redirect to the compose page
+    //      this.setState({redirectTo: true});
+    //     //  return true;
+    //    }
+    //    else{
+    //       return false;
+    //    }
+    this.setState({openDeleteDialog: true})
   }
+
+  handleDeleteConfirm (){
+    this.props.dispatch(actions.deleteHaiku(this.props.haikuId));
+    this.setState({openDeleteDialog: false,
+                   redirectTo: true,
+                  })
+  }
+
+  handleDeleteCancel() {
+    this.setState({openDeleteDialog: false})
+  }
+
 
   handleBack() {
     this.setState({redirectTo: true});
+  }
+
+  handleQuestionOpen() {
+    this.setState({openQuestionDialog: true})
+  }
+
+  handleQuestionClose() {
+    this.setState({openQuestionDialog: false})
   }
 
   componentDidMount (){
@@ -189,7 +223,14 @@ export class Compose extends React.Component {
     const line1 = this.props.line1 || ''
     const line2 = this.props.line2 || ''
     const line3 = this.props.line3 || ''
-    // refresh syllable count and classes for line inputs
+    // refresh syllable count and classes for line inputs, whether loading
+    // a saved haiku or after a new one saved
+    // let syl1 = 0;
+    // let syl2 = 0;
+    // let syl3 = 0;
+    // if (line1.length !== 0) {syl1 = this.syllableCounter(line1)};
+    // if (line2.length !== 0) {syl2 = this.syllableCounter(line2)};
+    // if (line3.length !== 0) {syl3 = this.syllableCounter(line3)};
     const syl1 = this.syllableCounter(line1);
     const syl2 = this.syllableCounter(line2);
     const syl3 = this.syllableCounter(line3);
@@ -208,8 +249,14 @@ export class Compose extends React.Component {
       syl2Classes: classLine2,
       syl3Classes: classLine3,
     })
-
+    // not working yet
+    this.focus()
   }
+
+  focus() {
+   // Explicitly focus the text input using the raw DOM API
+   this.line1TextInput.focus();
+ }
 
 
   render () {
@@ -226,11 +273,78 @@ export class Compose extends React.Component {
         {this.state.redirectTo && (
           <Redirect to={'/home'}/>
         )}
+        <div className="sub-header">
+          <img src={crane} className='crane-logo logos' alt='crane' />
+        </div>
+
+        <div className="question-div">
+          <IconButton
+            iconClassName="fa fa-question-circle"
+            onClick={this.handleQuestionOpen}
+          />
+          <Dialog
+            title="Reminder:  A haiku is a simple poem with 3 lines: the 1st & 3rd lines have 5 syllables, while the 2nd line has 7."
+            actions={<FlatButton
+                      label="Got it!"
+                      primary={true}
+                      onTouchTap={this.handleQuestionClose}
+                    />}
+            modal={true}
+            open={this.state.openQuestionDialog}
+          />
+        </div>
 
 
-        <div className='textAreaWrapper' >
-          <RaisedButton label="Save" disabled={this.state.buttonsDisabled} onClick={this.handleSave} />
-          <RaisedButton onClick={this.handleLogout} label="Logout" />
+        <div className='input-div-containers'>
+
+          <ContentEditable
+            className="haiku_input_divs haiku_input_div1 color_gradient_text"
+            html={this.state.line1Text}
+            disabled={false}
+            onChange={this.handleTextChangeLine1}
+            onKeyUp={this.handleOnKeyUp}
+            ref={(input) => { this.line1TextInput = input; }}
+          />
+          <div className={this.state.syl1Classes} >
+            {this.state.line1Syl}
+          </div>
+        </div>
+        <div className='input-div-containers'>
+          <ContentEditable
+            className="haiku_input_divs haiku_input_div2 color_gradient_text"
+            html={this.state.line2Text}
+            disabled={false}
+            onChange={this.handleTextChangeLine2}
+            onKeyUp={this.handleOnKeyUp}
+          />
+          <div className={this.state.syl2Classes}>
+            {this.state.line2Syl}
+          </div>
+        </div>
+
+        <div className='input-div-containers'>
+          <ContentEditable
+            className="haiku_input_divs haiku_input_div3 color_gradient_text"
+            html={this.state.line3Text}
+            disabled={false}
+            onChange={this.handleTextChangeLine3}
+            onKeyUp={this.handleOnKeyUp}
+          />
+          <div className={this.state.syl3Classes}>
+            {this.state.line3Syl}
+          </div>
+        </div>
+
+
+        <div className='button-wrapper'>
+          <RaisedButton
+            className="save-material-button"
+            label="Save"
+            disabled={this.state.buttonsDisabled}
+            onClick={this.handleSave}
+            style={{width: 108}}
+          />
+          <p>or</p>
           <RaisedButton
             href={fullUrl}
             target="_blank"
@@ -238,44 +352,33 @@ export class Compose extends React.Component {
             label="Twitter"
             icon={<TwitterIcon />}
             disabled={this.state.buttonsDisabled}
+            style={{width: 110,
+                    marginLeft: 'auto',
+                    marginRight: 'auto'}}
           />
           {this.props.deleteButton && (
-            <RaisedButton label="Delete" onClick={this.handleDelete} />
+            <RaisedButton label="Delete" onClick={this.handleDeleteOpen} />
           )}
           {this.props.backButton && (
             <RaisedButton label="Go Back" onClick={this.handleBack} />
           )}
-        </div>
+          <Dialog
+            title="Are you sure you'd like to delete this haiku?"
+            actions={[<FlatButton
+                      label="No, Cancel"
+                      primary={true}
+                      onTouchTap={this.handleDeleteCancel}
+                      />,
+                      <FlatButton
+                      label="Yes, Delete"
+                      primary={true}
+                      onTouchTap={this.handleDeleteConfirm}
+                      />
+                    ]}
+            modal={true}
+            open={this.state.openDeleteDialog}
+          />
 
-        <ContentEditable
-          className="haiku_input_divs haiku_input_div1 color_gradient_text"
-          html={this.state.line1Text}
-          disabled={false}
-          onChange={this.handleTextChangeLine1}
-          onKeyUp={this.handleOnKeyUp}
-        />
-        <div className={this.state.syl1Classes}>
-          {this.state.line1Syl}
-        </div>
-        <ContentEditable
-          className="haiku_input_divs haiku_input_div2 color_gradient_text"
-          html={this.state.line2Text}
-          disabled={false}
-          onChange={this.handleTextChangeLine2}
-          onKeyUp={this.handleOnKeyUp}
-        />
-        <div className={this.state.syl2Classes}>
-          {this.state.line2Syl}
-        </div>
-        <ContentEditable
-          className="haiku_input_divs haiku_input_div3 color_gradient_text"
-          html={this.state.line3Text}
-          disabled={false}
-          onChange={this.handleTextChangeLine3}
-          onKeyUp={this.handleOnKeyUp}
-        />
-        <div className={this.state.syl3Classes}>
-          {this.state.line3Syl}
         </div>
       </div>
     )

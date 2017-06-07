@@ -1,35 +1,77 @@
-.textAreaWrapper {
-  width: 500px;
-  margin: 0 auto 20px 0;
+.compose {
+  color: #4DD0E1;
+  width: 100%;
+  text-align: center;
+}
+
+.input-div-containers {
+  width: 100%;
+  /*border: 1px solid black;*/
+  margin: 0 auto;
+  /*position: relative;*/
 }
 
 .haiku_input_divs {
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  display: inline-block;
   text-align: center;
-  width: 1000px;
+  width: 75%;
+  max-width: 800px;
   height: auto;
-  margin: 0 auto 25px auto;
+  /*margin: 40px 5% 25px 15%;*/
+  margin: 40px auto 25px auto;
   font-size: 50px;
   padding: 5px 0;
-  border: 1px dotted blue;
+  /*border: 1px dotted blue;*/
+  border-bottom: 1px solid rgba(77, 208, 225, 0.6)
+}
+
+.haiku_input_divs:focus {
+  outline: none;
 }
 
 .color_gradient_text {
   color: black;
-  background: -webkit-linear-gradient(#eee, #333);
+  /*background: -webkit-linear-gradient(#eee, #333);*/
+  background: linear-gradient(
+    #00ACC1, #E0F7FA
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .syllablesDiv {
+  text-align: center;
+  display: inline-block;
+  /*position: relative;*/
+  position: absolute;
+
+  /*float: right;*/
+  /*right: 100px;*/
+  /*top: 40px;*/
+  margin: 30px 0 0 20px;
+  height: 40px;
+  width: 40px;
+  /*left: 20px;
+  bottom: 10px;*/
+  /*right:*/
+  /*margin: 0 0 0px 20px;*/
+  padding: 9px 5px 5px 5px;
+  background-color: rgba(77, 208, 225, 0.1);
+  border: none;
+  border-radius: 20%;
+
+
   transition: all 0.2s linear;
-  width: 50px;
-  margin: 0 auto 25px auto;
+
+
   font-size: 30px;
-  color: rgb(227, 92, 92);
+  color: rgba(227, 92, 92, 0.5);
 }
 
 .green {
-  color: rgb(92, 227, 92);
+  color: rgba(92, 227, 92, 0.5);
 }
 
 .logout-button {
@@ -37,7 +79,7 @@
 }
 
 /*styles from twitter button component*/
-.react-sharing-button__link {
+/*.react-sharing-button__link {
   display: inline-block;
   text-decoration: none;
   color: #fff;
@@ -46,46 +88,62 @@
   transition: 50ms ease-out;
   padding: 0.5em 0.75em;
   line-height: 1.2em;
+}*/
+
+.button-wrapper {
+  text-align: center;
+  width: 100%;
+  height: 100px;
+  margin: 30px 0 50px 0
+  /*border: 1px solid black;*/
+  /*margin: 0 42% 0 auto;*/
 }
 
-.react-sharing-button--twitter {
-  background-color: #55acee;
+.sub-header {
+  font-family: 'Roboto', sans-serif;
+  font-style: none;
+  position: relative;
+  width: 320px;
+  height: auto;
+  margin: 0px auto 0 auto;
+  /*border: 1px solid grey;*/
 
 }
 
-.twitter-button-wrapper {
+.crane-logo {
   display: inline-block;
-
-}
-
-.disabled {
+  /*position: absolute;*/
+  /*left: 10px;*/
+  /*float: left;*/
+  /*vertical-align: middle;*/
+  /*position: relative;*/
+  width: 80px;
+  height: 80px;
+  /*margin: 10px auto 0 auto;*/
+  right: 10px;
+  border: 1px solid #4DD0E1;
   opacity: .6;
-  pointer-events: none;
 }
 
-.twitter-button-wrapper a {
-  background-color: #55acee;
+/*.question-text-div {
+  position: absolute;
+  top: 120px;
+  right: 20px;
+
+  width: 240px;
+  height: auto;
+  margin: 0px 0 0px 0;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: .15em;
+}*/
+
+.question-div {
+  position: absolute;
+  top: 90px;
+  right: 20px;
 }
 
-.twitter-button-wrapper a:hover {
-  background-color: #2795e9;
-}
-
-
-/*if button wrapper disabled, turn off hover change*/
-.twitter-button-wrapper.disabled a:hover {
-  background-color: #55acee;
-}
-
-
-
-
-.react-sharing-button--twitter.disabled:hover {
-
-}
-
-.disabled:hover {
-  /*opacity: .6;*/
-  /*color: #55acee;*/
-
+.fa-question-circle {
+  font-size: 30px;
 }
