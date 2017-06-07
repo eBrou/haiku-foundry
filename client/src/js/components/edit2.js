@@ -75,7 +75,7 @@ export class Edit2 extends React.Component {
         {this.state.redirectTo && (
           <Redirect to={'/home'}/>
         )}
-        <Header />
+        <Header logoutHeader={true} />
         <Compose
           line1={haikuArr[0]}
           line2={haikuArr[1]}
@@ -83,6 +83,7 @@ export class Edit2 extends React.Component {
           deleteButton={true}
           backButton={true}
           message="Edit a Saved Haiku..."
+          buttonsDisabled={false}
         />
 
 
