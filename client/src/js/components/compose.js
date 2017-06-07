@@ -167,10 +167,30 @@ export class Compose extends React.Component {
 
   handleLogout(event) {
     event.preventDefault();
+    // firebase.auth().signOut()
+    //   .then(() => {
+    //     // console.log('user logged OUT');
+    //   })
+    //   .catch(function(error) {
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     console.log(errorCode, errorMessage)
+    //   })
     this.props.dispatch(actions.logOutUser());
   }
 
   handleDeleteOpen (){
+    // // confirmation pop up for delete button
+    // const retVal = confirm("Are you sure you'd like to delete this haiku?");
+    //    if( retVal === true ){
+    //      this.props.dispatch(actions.deleteHaiku(this.props.haikuId));
+    //      // immediately redirect to the compose page
+    //      this.setState({redirectTo: true});
+    //     //  return true;
+    //    }
+    //    else{
+    //       return false;
+    //    }
     this.setState({openDeleteDialog: true})
   }
 
@@ -203,13 +223,20 @@ export class Compose extends React.Component {
     const line1 = this.props.line1 || ''
     const line2 = this.props.line2 || ''
     const line3 = this.props.line3 || ''
+    // refresh syllable count and classes for line inputs, whether loading
+    // a saved haiku or after a new one saved
+    // let syl1 = 0;
+    // let syl2 = 0;
+    // let syl3 = 0;
+    // if (line1.length !== 0) {syl1 = this.syllableCounter(line1)};
+    // if (line2.length !== 0) {syl2 = this.syllableCounter(line2)};
+    // if (line3.length !== 0) {syl3 = this.syllableCounter(line3)};
     const syl1 = this.syllableCounter(line1);
     const syl2 = this.syllableCounter(line2);
     const syl3 = this.syllableCounter(line3);
     const classLine1 = this.syllableClassGen(syl1, 1);
     const classLine2 = this.syllableClassGen(syl2, 2);
     const classLine3 = this.syllableClassGen(syl3, 3);
-    const buttonsDisabled = this.prop.buttonsDisabled;
 
     this.setState({
       line1Text: line1,
@@ -221,12 +248,9 @@ export class Compose extends React.Component {
       syl1Classes: classLine1,
       syl2Classes: classLine2,
       syl3Classes: classLine3,
-      buttonsDisabled: false,
-
     })
-
     // not working yet
-    // this.focus()
+    this.focus()
   }
 
   focus() {
@@ -313,7 +337,6 @@ export class Compose extends React.Component {
 
 
         <div className='button-wrapper'>
-
           <RaisedButton
             className="save-material-button"
             label="Save"
