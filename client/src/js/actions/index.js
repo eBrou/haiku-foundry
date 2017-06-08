@@ -18,6 +18,7 @@ export const DELETE_HAIKU_SUCCESS = 'DELETE_HAIKU_SUCCESS';
 export const DELETE_HAIKU_ERROR = 'DELETE_HAIKU_ERROR';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_ERROR = 'LOGOUT_ERROR';
+export const RESET_SAVE_DIALOG = 'RESET_SAVE_DIALOG';
 
 // action creators
 export const signInSuccess = () => ({
@@ -79,7 +80,9 @@ export const logOutError = () => ({
   type: LOGOUT_ERROR,
 });
 
-
+export const resetSaveDialog = () => ({
+  type: RESET_SAVE_DIALOG,
+})
 
 // ASync Actions
 
@@ -159,7 +162,8 @@ export const saveHaiku = (haiku) => {
 export const saveEditHaiku = (haikuText) => {
   return (dispatch, getState) => {
     const haikuId = getState().haikuIdToEdit;
-    const date = new Date();
+    // const date = new Date();
+    const date = new Date().toString();
     return fetch(`//localhost:3001/api/haikus/${haikuId}`,
       {
         method: 'PUT',

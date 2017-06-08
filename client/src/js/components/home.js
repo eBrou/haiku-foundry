@@ -16,11 +16,12 @@ export class Home extends React.Component {
       <div>
         <Header logoutHeader={true}/>
         <Sidebar />
-        <Compose />
+        <Compose
+          buttonsDisabled={true}
+          saveButton={true}
+         />
       </div>
-
     )
-
   }
 }
 

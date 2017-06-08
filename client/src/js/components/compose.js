@@ -27,9 +27,9 @@ export class Compose extends React.Component {
       textArea: 'looking at my desk: / paper, pen, water bottle, / and a grey laptop.',
       welcomeMsg: 'Write a new haiku...',
       redirectTo: false,
-      line1Text: 'a a a a ',
-      line2Text: 'b b b b b b ',
-      line3Text: 'c c c c ',
+      line1Text: '',
+      line2Text: '',
+      line3Text: '',
       line1Syl: 0,
       line2Syl: 0,
       line3Syl: 0,
@@ -41,13 +41,13 @@ export class Compose extends React.Component {
       twitterAddOns: ' //// #Haiku via @haiku_foundry',
       openQuestionDialog: false,
       openDeleteDialog: false,
+
     };
     this.handleTextChangeLine1 = this.handleTextChangeLine1.bind(this);
     this.handleTextChangeLine2 = this.handleTextChangeLine2.bind(this);
     this.handleTextChangeLine3 = this.handleTextChangeLine3.bind(this);
     this.syllableClassGen = this.syllableClassGen.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.handleShare = this.handleShare.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleTextMain = this.handleTextMain.bind(this);
     this.syllableCounter = this.syllableCounter.bind(this);
@@ -56,11 +56,13 @@ export class Compose extends React.Component {
     this.haikuSubmitFormatter = this.haikuSubmitFormatter.bind(this);
     this.handleDeleteOpen = this.handleDeleteOpen.bind(this);
     this.handleBack = this.handleBack.bind(this);
-    this.focus = this.focus.bind(this);
+    // this.focus = this.focus.bind(this);
     this.handleQuestionOpen = this.handleQuestionOpen.bind(this);
     this.handleQuestionClose = this.handleQuestionClose.bind(this);
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
     this.handleDeleteCancel = this.handleDeleteCancel.bind(this);
+    this.handleSaveDialogClose = this.handleSaveDialogClose.bind(this);
+    this.handleSaveChanges = this.handleSaveChanges.bind(this);
   }
 
   haikuSubmitFormatter() {
@@ -84,12 +86,31 @@ export class Compose extends React.Component {
       syl1Classes: 'syllablesDiv',
       syl2Classes: 'syllablesDiv',
       syl3Classes: 'syllablesDiv',
-                  })
+      })
   }
 
-  handleShare(event) {
-    event.preventDefault();
-    console.log("shared");
+
+  handleSaveDialogClose() {
+    // resets boolean in redux state which opens/closes dialog
+    this.props.dispatch(actions.resetSaveDialog())
+    // redirects to home
+    this.setState({ redirectTo: true })
+  }
+
+  handleSaveChanges() {
+    // i think this is going to work...
+    const haiku = this.haikuSubmitFormatter()
+    this.props.dispatch(actions.saveEditHaiku(haiku))
+    this.setState({line1Text: null,
+      line2Text: null,
+      line3Text: null,
+      line1Syl: 0,
+      line2Syl: 0,
+      line3Syl: 0,
+      syl1Classes: 'syllablesDiv',
+      syl2Classes: 'syllablesDiv',
+      syl3Classes: 'syllablesDiv',
+      })
   }
 
   // function to determine whether to add green class to counter
@@ -198,19 +219,23 @@ export class Compose extends React.Component {
     this.setState({openQuestionDialog: false})
   }
 
+  // savedNoticeOnOff () {
+  //   // set savedNoticeClasses on and off
+  //   console.log('saved notice ON OFF')
+  // }
+
   componentDidMount (){
     // fill in blank lines or haiku to be edited
     const line1 = this.props.line1 || ''
     const line2 = this.props.line2 || ''
     const line3 = this.props.line3 || ''
+    // update the counters and their classes
     const syl1 = this.syllableCounter(line1);
     const syl2 = this.syllableCounter(line2);
     const syl3 = this.syllableCounter(line3);
     const classLine1 = this.syllableClassGen(syl1, 1);
     const classLine2 = this.syllableClassGen(syl2, 2);
     const classLine3 = this.syllableClassGen(syl3, 3);
-    const buttonsDisabled = this.prop.buttonsDisabled;
-
     this.setState({
       line1Text: line1,
       line2Text: line2,
@@ -221,18 +246,23 @@ export class Compose extends React.Component {
       syl1Classes: classLine1,
       syl2Classes: classLine2,
       syl3Classes: classLine3,
-      buttonsDisabled: false,
-
+      buttonsDisabled: this.props.buttonsDisabled,
     })
+    // check for saved notice prop (from store/state).  if there, trigger function for setting classes
+    // on save notification
+    // if (this.props.savedNotice !== 'undefined') {
+    //   this.savedNoticeOnOff();
+    // }
+
 
     // not working yet
     // this.focus()
   }
 
-  focus() {
-   // Explicitly focus the text input using the raw DOM API
-   this.line1TextInput.focus();
- }
+ //  focus() {
+ //   // Explicitly focus the text input using the raw DOM API
+ //   this.line1TextInput.focus();
+ // }
 
 
   render () {
@@ -313,14 +343,25 @@ export class Compose extends React.Component {
 
 
         <div className='button-wrapper'>
+          {this.props.saveButton && (
+            <RaisedButton
+              className="save-material-button"
+              label="Save"
+              disabled={this.state.buttonsDisabled}
+              onClick={this.handleSave}
+              style={{width: 108}}
+            />
+          )}
+          {this.props.saveChangesButton && (
+            <RaisedButton
+              className="save-material-button"
+              label="Save Changes"
+              disabled={this.state.buttonsDisabled}
+              onClick={this.handleSaveChanges}
+              style={{width: 150}}
+            />
+          )}
 
-          <RaisedButton
-            className="save-material-button"
-            label="Save"
-            disabled={this.state.buttonsDisabled}
-            onClick={this.handleSave}
-            style={{width: 108}}
-          />
           <p>or</p>
           <RaisedButton
             href={fullUrl}
@@ -333,6 +374,7 @@ export class Compose extends React.Component {
                     marginLeft: 'auto',
                     marginRight: 'auto'}}
           />
+
           {this.props.deleteButton && (
             <RaisedButton label="Delete" onClick={this.handleDeleteOpen} />
           )}
@@ -355,6 +397,16 @@ export class Compose extends React.Component {
             modal={true}
             open={this.state.openDeleteDialog}
           />
+          <Dialog
+            title="Your haiku has been saved."
+            actions={<FlatButton
+                      label="Ok"
+                      primary={true}
+                      onTouchTap={this.handleSaveDialogClose}
+                    />}
+            modal={true}
+            open={this.props.savedDialog}
+          />
 
         </div>
       </div>
@@ -362,20 +414,13 @@ export class Compose extends React.Component {
   }
 }
 
-//// twitter component from react-sharingbuttons
-// <Twitter
-//   shareText={text}
-// />
-
-// <div className={this.state.buttonsDisabled ? 'twitter-button-wrapper disabled' : 'twitter-button-wrapper'}>
-// </div>
-
 
 const mapStateToProps = (state, props) => ({
   loginErrorMessage: state.loginErrorMessage,
   email: state.email,
   userId: state.userId,
   haikuId: state.haikuIdToEdit,
+  savedDialog: state.savedDialog
 });
 
 export default connect(mapStateToProps)(Compose);

@@ -84,6 +84,8 @@ export class Edit2 extends React.Component {
           backButton={true}
           message="Edit a Saved Haiku..."
           buttonsDisabled={false}
+          saveButton={false}
+          saveChangesButton={true}
         />
 
 

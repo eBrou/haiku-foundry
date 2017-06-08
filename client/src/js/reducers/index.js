@@ -11,6 +11,7 @@ const initialState = {
   haikuIdToEdit: null,
   haikuTextToEdit: null,
   errors: null,
+  savedDialog: false,
 }
 
 export const mainReducer = (state = initialState, action) => {
@@ -37,6 +38,7 @@ export const mainReducer = (state = initialState, action) => {
     case actions.SAVE_HAIKU_SUCCESS: {
       // console.log("SAVE_HAIKU_SUCCESS triggered")
       return Object.assign({}, state, {
+        savedDialog: true
       });
     }
     case actions.GET_HAIKUS_SUCCESS: {
@@ -57,13 +59,20 @@ export const mainReducer = (state = initialState, action) => {
     case actions.SAVE_EDIT_HAIKU_SUCCESS: {
       // console.log('save edit haiku triggered');
       return Object.assign({}, state, {
+        savedDialog: true
       })
     }
     case actions.LOGOUT_SUCCESS: {
-      console.log('logout success happened');
+      // console.log('logout success happened');
       return Object.assign({}, state, {
         loggedIn: false,
         email: null,
+       })
+    }
+    case actions.RESET_SAVE_DIALOG: {
+      console.log('reset save dialog happened');
+      return Object.assign({}, state, {
+        savedDialog: false,
        })
     }
 

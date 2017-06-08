@@ -15,11 +15,13 @@
 
 .get-started-text {
   margin-top: 50px;
-  font-size: 30px;
-  /*font-family: 'Open Sans', sans-serif;*/
-  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.05em;
+  font-family: 'Open Sans', sans-serif;
+  /*font-family: 'Roboto', sans-serif;*/
+  /*font-family: 'Maven Pro', sans-serif;*/
   color: #4DD0E1;
-  font-style: italic;
+  /*font-style: italic;*/
 }
 
 .text-fields {
