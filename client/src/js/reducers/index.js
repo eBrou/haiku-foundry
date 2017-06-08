@@ -2,6 +2,22 @@
 import * as actions from '../actions/index';
 import firebase from 'firebase';
 
+
+const errorMessageGen = (errorCode) => {
+  switch (errorCode) {
+    case "auth/wrong-password":
+      return "Invalid password";
+    case "auth/user-not-found":
+      return "User not found";
+    case "auth/invalid-email":
+      return "Invalid email";
+
+    default:
+      return null;
+  }
+}
+
+
 const initialState = {
   loggedIn: false,
   loginErrorMessage: 'test',
@@ -10,8 +26,10 @@ const initialState = {
   savedHaikus: [],
   haikuIdToEdit: null,
   haikuTextToEdit: null,
-  errors: null,
+  errorEmail: null,
+  errorPassword: null,
   savedDialog: false,
+  redirectTo: false
 }
 
 export const mainReducer = (state = initialState, action) => {
@@ -25,14 +43,29 @@ export const mainReducer = (state = initialState, action) => {
           loggedIn: true,
           email: user.email,
           userId: user.uid,
-          tester: "blah",
+          redirectTo: true,
       })
     }
     case actions.SIGNIN_ERROR: {
-      console.log("SIGNUP_ERROR triggered")
-      console.log(action.errorMessage)
+      console.log("SIGNIN_ERROR triggered")
+      // console.logaction.erroMessage.code
+      const errorCode = action.errorMessage.code
+      // check to see if error from password so it can be directed to password error line
+      let errorEmail;
+      let errorPassword
+      if(errorCode === 'auth/wrong-password'){
+        errorPassword = errorMessageGen(errorCode);
+        errorEmail = null;
+      }
+      else {
+        errorEmail = errorMessageGen(errorCode);
+        errorPassword = null;
+      }
+
+
       return Object.assign({}, state, {
-        errors: action.errorMessage
+        errorEmail: errorEmail,
+        errorPassword: errorPassword,
       });
     }
     case actions.SAVE_HAIKU_SUCCESS: {

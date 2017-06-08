@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import '../../css/login.css';
 import Header from './header';
 import tree from '../../css/images/tree.svg'
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 
 const errorMessageGen = (errorCode) => {
@@ -81,27 +82,22 @@ export class Login extends React.Component {
   handleLogin(event) {
     const email = this.state.email;
     const password = this.state.password;
-    // event.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(
-        response => {
-        console.log('user successfully logged in');
-        this.props.dispatch(actions.signInSuccess());
-        },
-        error => {
-          const errorMessage = errorMessageGen(error.code);
-          this.props.dispatch(actions.signInError(errorMessage))
-          throw error
-        }
-      )
-      .then(() => this.setState({redirectTo: true}))
-      .catch(error => console.log(error));
-      // .catch(function(error) {
-      //   var errorCode = error.code;
-      //   var errorMessage = error.message;
-      //   console.log(errorCode, errorMessage)
-      //   this.props.dispatch(actions.signInError(errorMessage));
-      // })
+
+    this.props.dispatch(actions.logInUser(email, password))
+    // firebase.auth().signInWithEmailAndPassword(email, password)
+    //   .then(
+    //     response => {
+    //     console.log('user successfully logged in');
+    //     this.props.dispatch(actions.signInSuccess());
+    //     },
+    //     error => {
+    //       const errorMessage = errorMessageGen(error.code);
+    //       this.props.dispatch(actions.signInError(errorMessage))
+    //       throw error
+    //     }
+    //   )
+    //   .then(() => this.setState({redirectTo: true}))
+    //   .catch(error => console.log(error));
   }
 
   handleDemoLogin (){
@@ -128,7 +124,7 @@ export class Login extends React.Component {
   render(){
     return (
       <div className='login'>
-        {this.state.redirectTo && (
+        {this.props.redirectTo && (
           <Redirect to={'/home'}/>
         )}
 
@@ -141,12 +137,14 @@ export class Login extends React.Component {
             hintText="jane_doe@email.com"
             floatingLabelText="Email"
             onChange={this.handleEmailChange}
+            errorText={this.props.errorEmail}
           />
           <TextField
             className="text-fields"
             floatingLabelText="Password"
             type="password"
             onChange={this.handlePasswordChange}
+            errorText={this.props.errorPassword}
           />
           <RaisedButton className="buttons login-button" label="Login"  onClick={this.handleLogin} />
           <RaisedButton className="buttons sign-up-button" label="Sign Up"  onClick={this.handleSignUp} />
@@ -166,7 +164,9 @@ export class Login extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  errors: state.errors,
+  errorEmail: state.errorEmail,
+  errorPassword: state.errorPassword,
+  redirectTo: state.redirectTo
 });
 
 
