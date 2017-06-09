@@ -120,7 +120,8 @@ export const getHaikus = () => {
   return (dispatch, getState) => {
     const userId = getState().userId;
     console.log('userId is ' + userId)
-    return fetch(`//localhost:3001/api/haikus/${userId}`)
+    return fetch(`/api/haikus/${userId}`)
+    // return fetch(`//localhost:3001/api/haikus/${userId}`)
     .then((response) => {
       if (!response.ok) {
         const error = new Error(response.statusText);
@@ -152,8 +153,9 @@ export const saveHaiku = (haiku) => {
       userId: userId,
       date: date
     }
-    // console.log(haikuObj)
-    return fetch('//localhost:3001/api/haikus',
+
+    // return fetch('//localhost:3001/api/haikus',
+    return fetch('/api/haikus',
       { method: "POST",
         mode: 'cors',
         headers: new Headers({
@@ -184,7 +186,8 @@ export const saveEditHaiku = (haikuText) => {
     const haikuId = getState().haikuIdToEdit;
     // const date = new Date();
     const date = new Date().toString();
-    return fetch(`//localhost:3001/api/haikus/${haikuId}`,
+    // return fetch(`//localhost:3001/api/haikus/${haikuId}`,
+    return fetch(`/api/haikus/${haikuId}`,
       {
         method: 'PUT',
         mode: 'cors',
@@ -217,7 +220,8 @@ export const saveEditHaiku = (haikuText) => {
 // Delete a Haiku
 export const deleteHaiku = (haikuId) => {
   return (dispatch, getState) => {
-    return fetch(`//localhost:3001/api/haikus/${haikuId}`,
+    // return fetch(`//localhost:3001/api/haikus/${haikuId}`,
+    return fetch(`/api/haikus/${haikuId}`,
       {
         method: 'DELETE',
         headers: new Headers({
