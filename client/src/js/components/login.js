@@ -9,21 +9,13 @@ import FlatButton from 'material-ui/FlatButton';
 import '../../css/login.css';
 import Header from './header';
 import tree from '../../css/images/tree.svg'
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+// import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 
-const errorMessageGen = (errorCode) => {
-  switch (errorCode) {
-    case "auth/wrong-password":
-      return "Invalid password";
-    case "auth/user-not-found":
-      return "User not found";
-    case "auth/invalid-email":
-      return "Invalid email";
 
-    default:
-      return null;
-  }
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }
 
 
@@ -33,7 +25,8 @@ export class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      errorMessage: '',
+      errorEmail: '',
+      errorPassword: '',
       redirectTo: false
     }
     this.handleSignUp = this.handleSignUp.bind(this);
@@ -52,52 +45,39 @@ export class Login extends React.Component {
     this.setState({password: event.target.value});
   }
 
+
   handleSignUp(event) {
-    console.log('A name was submitted: ' + this.state.email);
-    console.log('A password was submitted: ' + this.state.password);
+
     const email = this.state.email;
     const password = this.state.password;
-    event.preventDefault();
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(
-        response => {
-          console.log('user successfully signed up');
-          this.setState({redirectTo: true});
-        },
-        error => {
-          const errorMessage = errorMessageGen(error.code);
-          this.props.dispatch(actions.signInError(errorMessage))
-          throw error
-        }
-      )
-      .then(() => this.setState({redirectTo: true}))
-      .catch(error => console.log(error));
-      // .catch(function(error) {
-      //   var errorCode = error.code;
-      //   var errorMessage = error.message;
-      //   console.log(errorCode, errorMessage)
-      // })
+    // check if email is valid.  if not, exit and set error message
+    if (validateEmail(email) !== true) {
+      this.setState({errorEmail: "Please enter a valid email address"})
+      return
+    }
+    // check if password is at least 6 characters
+    if (password.length < 6) {
+      this.setState({errorPassword: "Please enter a password of 6 characters or more"})
+      return
+    }
+    this.props.dispatch(actions.signUpUser(email, password))
   }
 
   handleLogin(event) {
     const email = this.state.email;
     const password = this.state.password;
-
+    // check if email is valid.  if not, exit and set error message
+    if (validateEmail(email) !== true) {
+      this.setState({errorEmail: "Please enter a valid email address"})
+      return
+    }
+    // check if password is at least 6 characters
+    if (password.length < 6) {
+      this.setState({errorPassword: "Please enter a password of 6 characters or more"})
+      return
+    }
+    // if checks pass, dispatch action to login
     this.props.dispatch(actions.logInUser(email, password))
-    // firebase.auth().signInWithEmailAndPassword(email, password)
-    //   .then(
-    //     response => {
-    //     console.log('user successfully logged in');
-    //     this.props.dispatch(actions.signInSuccess());
-    //     },
-    //     error => {
-    //       const errorMessage = errorMessageGen(error.code);
-    //       this.props.dispatch(actions.signInError(errorMessage))
-    //       throw error
-    //     }
-    //   )
-    //   .then(() => this.setState({redirectTo: true}))
-    //   .catch(error => console.log(error));
   }
 
   handleDemoLogin (){
@@ -132,22 +112,30 @@ export class Login extends React.Component {
         <h1 className="get-started-text">Login or sign up to get started </h1>
         <div className='loginWrapper'>
           <img src={tree} className='logos tree-logo' alt='tree' />
-          <TextField
-            className="text-fields"
-            hintText="jane_doe@email.com"
-            floatingLabelText="Email"
-            onChange={this.handleEmailChange}
-            errorText={this.props.errorEmail}
-          />
-          <TextField
-            className="text-fields"
-            floatingLabelText="Password"
-            type="password"
-            onChange={this.handlePasswordChange}
-            errorText={this.props.errorPassword}
-          />
-          <RaisedButton className="buttons login-button" label="Login"  onClick={this.handleLogin} />
-          <RaisedButton className="buttons sign-up-button" label="Sign Up"  onClick={this.handleSignUp} />
+          <form >
+            <TextField
+              className="text-fields"
+              hintText="jane_doe@email.com"
+              floatingLabelText="Email"
+              onChange={this.handleEmailChange}
+              errorText={this.props.errorEmail !== null ?
+                (this.props.errorEmail) :
+                (this.state.errorEmail)}
+              required={true}
+            />
+            <TextField
+              className="text-fields"
+              floatingLabelText="Password"
+              type="password"
+              onChange={this.handlePasswordChange}
+              errorText={this.props.errorPassword !== null ?
+                (this.props.errorPassword) :
+                (this.state.errorPassword)}
+              required={true}
+            />
+            <RaisedButton className="buttons login-button" label="Login"  onClick={this.handleLogin} />
+            <RaisedButton className="buttons sign-up-button" label="Sign Up"  onClick={this.handleSignUp} />
+          </form>
           <FlatButton
             className="demo-button"
             label="or click here for demo login"

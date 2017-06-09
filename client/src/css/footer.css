@@ -1,11 +1,13 @@
-footer {
-  /*width: 100%;*/
-  /*position: absolute;*/
-  /*right: 0;
-  bottom: 0;
-  left: 0;*/
+.muidocs-icon-custom-github:before {
+    content: "\e625";
+}
+
+.footerComponent {
+
+  color: white;
   padding: 1rem;
   text-align: center;
+  font-size: 14px;
   height: 20px;
   background-image:
     linear-gradient(
@@ -13,8 +15,9 @@ footer {
       #4DD0E1, #E0F7FA
     );
 
+
 }
 
-.footerText {
-  color: white;
+.github-button {
+  color: #00ACC1;
 }

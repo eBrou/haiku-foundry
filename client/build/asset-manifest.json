@@ -1,9 +1,10 @@
 {
-  "main.css": "static/css/main.db4d8b6e.css",
-  "main.css.map": "static/css/main.db4d8b6e.css.map",
-  "main.js": "static/js/main.d1727e2a.js",
-  "main.js.map": "static/js/main.d1727e2a.js.map",
-  "static/media/crane.svg": "static/media/crane.761bd3e3.svg",
-  "static/media/rock-garden.svg": "static/media/rock-garden.6f27ce7d.svg",
-  "static/media/tree.svg": "static/media/tree.4da8a966.svg"
+  "main.css": "static/css/main.a6a5bb3d.css",
+  "main.css.map": "static/css/main.a6a5bb3d.css.map",
+  "main.js": "static/js/main.2a794d4b.js",
+  "main.js.map": "static/js/main.2a794d4b.js.map",
+  "static/media/crane.svg": "static/media/crane.230ab318.svg",
+  "static/media/rock-garden-white.svg": "static/media/rock-garden-white.12607ccd.svg",
+  "static/media/rock-garden.svg": "static/media/rock-garden.1a31ae09.svg",
+  "static/media/tree.svg": "static/media/tree.51109f46.svg"
 }

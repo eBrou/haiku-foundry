@@ -3,6 +3,7 @@ import * as actions from '../actions/index';
 import firebase from 'firebase';
 
 
+// helper function to generate custom error messages from firebase
 const errorMessageGen = (errorCode) => {
   switch (errorCode) {
     case "auth/wrong-password":
@@ -11,7 +12,8 @@ const errorMessageGen = (errorCode) => {
       return "User not found";
     case "auth/invalid-email":
       return "Invalid email";
-
+    case "auth/email-already-in-use":
+        return "Email already in use"
     default:
       return null;
   }
@@ -39,16 +41,16 @@ export const mainReducer = (state = initialState, action) => {
       // console.log('signInSuccess triggered')
       const user = firebase.auth().currentUser
       // console.log(user);
-        return Object.assign({}, state, {
-          loggedIn: true,
-          email: user.email,
-          userId: user.uid,
-          redirectTo: true,
+      return Object.assign({}, state, {
+        loggedIn: true,
+        email: user.email,
+        userId: user.uid,
+        redirectTo: true,
       })
     }
     case actions.SIGNIN_ERROR: {
-      console.log("SIGNIN_ERROR triggered")
-      // console.logaction.erroMessage.code
+      // console.log("SIGNIN_ERROR triggered")
+      // console.log(action.errorMessage)
       const errorCode = action.errorMessage.code
       // check to see if error from password so it can be directed to password error line
       let errorEmail;

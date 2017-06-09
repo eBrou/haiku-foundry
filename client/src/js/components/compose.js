@@ -11,7 +11,7 @@ import Header from './header';
 import ContentEditable from 'react-contenteditable';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import { Twitter } from 'react-sharingbuttons';
+// import { Twitter } from 'react-sharingbuttons';
 import 'react-sharingbuttons/dist/main.css';
 import TwitterIcon from './twitter-icon';
 import crane from '../../css/images/crane.svg';
@@ -65,10 +65,10 @@ export class Compose extends React.Component {
     this.handleSaveChanges = this.handleSaveChanges.bind(this);
   }
 
-  haikuSubmitFormatter() {
-    const line1 = this.state.line1Text;
-    const line2 = this.state.line2Text;
-    const line3 = this.state.line3Text;
+  haikuSubmitFormatter(line1, line2, line3) {
+    // const line1 = this.state.line1Text;
+    // const line2 = this.state.line2Text;
+    // const line3 = this.state.line3Text;
     return `${line1} // ${line2} // ${line3}`
   }
 
@@ -164,7 +164,10 @@ export class Compose extends React.Component {
       console.log("nicely formatted!")
       this.setState({buttonsDisabled: false})
       // populating twitterText state with haiku
-      const haiku = this.haikuSubmitFormatter()
+      const line1 = this.state.line1Text;
+      const line2 = this.state.line2Text;
+      const line3 = this.state.line3Text;
+      const haiku = this.haikuSubmitFormatter(line1, line2, line3);
       this.setState({twitterText: haiku})
       console.log(haiku)
     }
@@ -248,25 +251,14 @@ export class Compose extends React.Component {
       syl3Classes: classLine3,
       buttonsDisabled: this.props.buttonsDisabled,
     })
-    // check for saved notice prop (from store/state).  if there, trigger function for setting classes
-    // on save notification
-    // if (this.props.savedNotice !== 'undefined') {
-    //   this.savedNoticeOnOff();
-    // }
-
-
-    // not working yet
-    // this.focus()
+    // loads haiku selected to be edited into state
+    const haiku = this.haikuSubmitFormatter(line1, line2, line3);
+    this.setState({twitterText: haiku});
   }
-
- //  focus() {
- //   // Explicitly focus the text input using the raw DOM API
- //   this.line1TextInput.focus();
- // }
 
 
   render () {
-    const text = `${this.state.twitterText}${this.state.twitterAddOns}`
+    const text = `${this.state.twitterText} //// #Haiku via @haiku_foundry`
     const textEncoded = encodeURI(text).replace(/#/g, '%23');
     const fullUrl = `https://twitter.com/intent/tweet/?text=${textEncoded}`
     // {this.state.redirectTo && (

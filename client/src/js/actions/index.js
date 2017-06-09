@@ -97,6 +97,15 @@ export const logInUser = (email, password) => {
 }
 
 
+export const signUpUser = (email, password) => {
+  return (dispatch) => {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(() => dispatch(signInSuccess()))
+    .catch((error) => dispatch(signInError(error)))
+  }
+}
+
+
 // Log Out a user
 export const logOutUser = () => {
   return (dispatch) => {

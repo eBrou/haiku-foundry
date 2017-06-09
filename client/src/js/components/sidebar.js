@@ -6,14 +6,19 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import IconButton from 'material-ui/IconButton';
 import mockData from '../../mock-data.js';
+import '../../css/sidebar.css';
 import * as actions from '../actions/index';
 
 const menuStyles = {
-      border: '2px solid #00ACC1',
+      border: '1px solid #4DD0E1',
       backgroundColor: '#f5f8fa',
       height: '100px',
-      whiteSpace: 'normal'
+      whiteSpace: 'normal',
+      paddingBottom: '10px'
     }
 
 // const haikus = mockData.haikus.map((haiku, i) => {
@@ -62,8 +67,7 @@ export class Sidebar extends React.Component {
         style={menuStyles}
         onTouchTap={this.handleClick.bind(null, haiku._id, haiku.haikuText)}
         >
-        {date}: {haiku.haikuText}
-        <i className="fa fa-pencil-square-o pencil" aria-hidden="true"></i>
+        {date}:{'  '}{haiku.haikuText}
         </MenuItem>
       )
     })
@@ -75,28 +79,25 @@ export class Sidebar extends React.Component {
         )}
 
         <RaisedButton
-          label="Saved Haikus"
+          label={`${this.props.email}\'s Saved Haikus`}
           onTouchTap={this.handleToggle}
         />
         <Drawer open={this.state.open}
           width={320}
         >
-          <MenuItem
-
+          <AppBar title="EDIT OR SHARE SAVED HAIKUS"
             style={{
+              paddingTop: '10px',
               height: '80px',
               backgroundColor: '#4DD0E1',
               color: 'white',
             }}
-          >
-            Saved Haikus <br></br>
-            Click any to edit or share
-            <button className="hideSavedButton"
-              onTouchTap={this.handleToggle}
-            >
-              Hide
-            </button>
-          </MenuItem>
+            titleStyle={{fontSize: '16px'}}
+            iconElementLeft={
+              <IconButton onClick={this.handleToggle} >
+                <NavigationClose style ={{marginRight:'0px'}} />
+              </IconButton>}
+          />
           {savedHaikus}
         </Drawer>
       </div>
@@ -106,6 +107,29 @@ export class Sidebar extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   savedHaikus: state.savedHaikus,
+  email: state.email,
 });
 
 export default connect(mapStateToProps)(Sidebar);
+
+
+// <MenuItem
+//   style={{
+//     height: '80px',
+//     backgroundColor: '#4DD0E1',
+//     color: 'white',
+//   }}
+//   InnerDivStyle={{
+//     lineHeight: '50%',
+//     textAlign: 'center'
+//   }}
+// >
+//   Click any saved haiku to edit or share <br></br>
+//   <RaisedButton
+//     className="hide-button"
+//     label="Hide"
+//     style={{width: '50px', height: '36px',  marginBottom: '20px' }}
+//     labelStyle={{color: '#4DD0E1'}}
+//     onClick={this.handleToggle}
+//   />
+// </MenuItem>
