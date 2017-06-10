@@ -44,7 +44,7 @@ module.exports = function (app) {
         haikuText: req.body.haikuText,
         date: req.body.date
       })
-      .then(() => res.sendStatus(201))
+      .then((haiku) => res.status(201).json(haiku))
       .catch(err => {
         console.error(err);
         res.status(500).json({message: 'Internal server error'});
@@ -59,7 +59,7 @@ module.exports = function (app) {
     Haiku
         .findByIdAndUpdate(id, { haikuText: haiku, date: date })
         .exec()
-        .then(() => res.sendStatus(204))
+        .then((haiku) => res.status(204).end())
         .catch(err => res.status(500).json({message: 'Internal server error'}));
     })
 
