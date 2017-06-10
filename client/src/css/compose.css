@@ -78,17 +78,6 @@
   background-color: rgb(108, 144, 194);
 }
 
-/*styles from twitter button component*/
-/*.react-sharing-button__link {
-  display: inline-block;
-  text-decoration: none;
-  color: #fff;
-  margin: 0.5em;
-  border-radius: 5px;
-  transition: 50ms ease-out;
-  padding: 0.5em 0.75em;
-  line-height: 1.2em;
-}*/
 
 .button-wrapper {
   text-align: center;
@@ -125,18 +114,6 @@
   opacity: .6;
 }
 
-/*.question-text-div {
-  position: absolute;
-  top: 120px;
-  right: 20px;
-
-  width: 240px;
-  height: auto;
-  margin: 0px 0 0px 0;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: .15em;
-}*/
 
 .question-div {
   position: absolute;
@@ -146,4 +123,38 @@
 
 .fa-question-circle {
   font-size: 30px;
+}
+
+.save-material-buttons  {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.twitter-material-button {
+  margin-left: 15px;
+}
+
+.button-wrapper-1 {
+  margin-top: 50px;
+  text-align: center;
+  /*border: 1px solid black;*/
+  position: relative
+}
+
+.button-wrapper-2 {
+  margin-top: 25px;
+}
+
+/*.button-wrapper-1 > p {
+  position: absolute;
+  display: inline-block;
+
+}*/
+
+.delete-button {
+  margin-right: 15px;
+}
+
+.back-button {
+  margin-left: 15px;
 }

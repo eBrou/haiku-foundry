@@ -74,7 +74,11 @@ export class Compose extends React.Component {
 
   handleSave(event) {
     event.preventDefault();
-    const haiku = this.haikuSubmitFormatter()
+    const line1 = this.state.line1Text;
+    const line2 = this.state.line2Text;
+    const line3 = this.state.line3Text;
+    const haiku = this.haikuSubmitFormatter(line1, line2, line3)
+
     this.props.dispatch(actions.saveHaiku(haiku));
     // clears the form or should i do another way?
     this.setState({line1Text: null,
@@ -334,27 +338,25 @@ export class Compose extends React.Component {
         </div>
 
 
-        <div className='button-wrapper'>
+        <div className='button-wrapper-1'>
           {this.props.saveButton && (
             <RaisedButton
-              className="save-material-button"
+              className="save-material-buttons"
               label="Save"
               disabled={this.state.buttonsDisabled}
               onClick={this.handleSave}
-              style={{width: 108}}
+              style={{width: 140}}
             />
           )}
           {this.props.saveChangesButton && (
             <RaisedButton
-              className="save-material-button"
+              className="save-material-buttons"
               label="Save Changes"
               disabled={this.state.buttonsDisabled}
               onClick={this.handleSaveChanges}
-              style={{width: 150}}
+              style={{width: 140}}
             />
           )}
-
-          <p>or</p>
           <RaisedButton
             href={fullUrl}
             target="_blank"
@@ -362,17 +364,28 @@ export class Compose extends React.Component {
             label="Twitter"
             icon={<TwitterIcon />}
             disabled={this.state.buttonsDisabled}
-            style={{width: 110,
-                    marginLeft: 'auto',
-                    marginRight: 'auto'}}
+            style={{width: 140,}}
           />
-
+        </div>
+        <div className='button-wrapper-2'>
           {this.props.deleteButton && (
-            <RaisedButton label="Delete" onClick={this.handleDeleteOpen} />
+            <RaisedButton
+              label="Delete"
+              className="delete-button"
+              onClick={this.handleDeleteOpen}
+              style={{width: 140,
+                    }}
+            />
           )}
           {this.props.backButton && (
-            <RaisedButton label="Go Back" onClick={this.handleBack} />
+            <RaisedButton
+              label="Go Back"
+              className="back-button"
+              onClick={this.handleBack}
+              style={{width: 140,}}
+              />
           )}
+        </div>
           <Dialog
             title="Are you sure you'd like to delete this haiku?"
             actions={[<FlatButton
@@ -400,7 +413,7 @@ export class Compose extends React.Component {
             open={this.props.savedDialog}
           />
 
-        </div>
+
       </div>
     )
   }

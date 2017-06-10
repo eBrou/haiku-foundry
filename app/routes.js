@@ -11,28 +11,6 @@ function isLoggedIn(req, res, next) {
 
 
 module.exports = function (app) {
-  // app.get('/api/test', (req, res) => {
-  //
-  //     // res.send('hello')
-  //     // res.json(mockData)
-  //   Haiku
-  //     .find()
-  //     .limit(10)
-  //     .exec()
-  //     .then( haikus => res.json(haikus))
-  //   .catch(
-  //       err => {
-  //         console.error(err);
-  //         res.status(500).json({message: 'Internal server error'});
-  //     });
-  // })
-
-
-  // app.get('/*', (req, res) => {
-  //   res.sendFile('client/public/index.html')
-  // })
-
-
   /////////////
   // API routes
 

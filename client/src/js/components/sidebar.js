@@ -21,9 +21,7 @@ const menuStyles = {
       paddingBottom: '10px'
     }
 
-// const haikus = mockData.haikus.map((haiku, i) => {
-//   return <MenuItem key={i} style={menuStyles}>{haiku.date}: {haiku.text}</MenuItem>
-// })
+
 
 export class Sidebar extends React.Component {
   constructor(props) {
@@ -60,6 +58,9 @@ export class Sidebar extends React.Component {
   render() {
     const savedHaikus = this.props.savedHaikus.map((haiku, i) => {
       const date = haiku.date.slice(4, -24);
+      //split haiku back up by lines
+      // const haikuArr = haiku.haikuText.split(' // ')
+      // `${haikuArr[0]}\n${haikuArr[1]}\n${haikuArr[2]}`
       return (
         <MenuItem
         className="savedHaiku"
