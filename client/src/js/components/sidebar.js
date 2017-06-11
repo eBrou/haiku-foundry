@@ -74,7 +74,7 @@ export class Sidebar extends React.Component {
     })
     // console.log(this.props.savedHaikus)
     return (
-      <div>
+      <div className="sidebar">
         {this.state.redirectTo && (
           <Redirect to={'/edit'}/>
         )}
@@ -112,25 +112,3 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default connect(mapStateToProps)(Sidebar);
-
-
-// <MenuItem
-//   style={{
-//     height: '80px',
-//     backgroundColor: '#4DD0E1',
-//     color: 'white',
-//   }}
-//   InnerDivStyle={{
-//     lineHeight: '50%',
-//     textAlign: 'center'
-//   }}
-// >
-//   Click any saved haiku to edit or share <br></br>
-//   <RaisedButton
-//     className="hide-button"
-//     label="Hide"
-//     style={{width: '50px', height: '36px',  marginBottom: '20px' }}
-//     labelStyle={{color: '#4DD0E1'}}
-//     onClick={this.handleToggle}
-//   />
-// </MenuItem>
