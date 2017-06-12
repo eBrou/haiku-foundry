@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Match, Redirect, Switch, Link } from 'react-router-dom';
 import * as firebase from 'firebase';
 import '../../css/App.css';
-import Header from './header';
 import Landing from './landing';
 import Login from './login';
-import Compose from './compose';
-import Edit from './edit';
 import Edit2 from './edit2';
 import Footer from './footer';
 import Home from './home';
@@ -84,23 +81,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-
-// render() {
-//   return (
-//       <Router >
-//         <div className="App">
-//           <Header />
-//           <main>
-//             <Switch>
-//               <Route exact path="/" component={Landing} />
-//               <Route path="/login" component={Login} />
-//               <Route path="/compose" component={Compose} />
-//             </Switch>
-//           </main>
-//
-//           <Footer />
-//         </div>
-//       </Router>
-//   );
-// }

@@ -6,5 +6,4 @@ import * as reducers from './js/reducers/index';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers.mainReducer, composeEnhancers(applyMiddleware(thunk)));
 
-// export default createStore(reducers.mainReducer, applyMiddleware(thunk));
 export default store

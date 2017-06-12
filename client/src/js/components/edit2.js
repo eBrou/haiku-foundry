@@ -7,7 +7,7 @@ import * as actions from '../actions/index';
 import '../../css/edit.css';
 import Sidebar from './sidebar';
 import Header from './header';
-import Compose from './compose'
+import Compose from './compose';
 
 export class Edit2 extends React.Component {
   constructor(props) {
