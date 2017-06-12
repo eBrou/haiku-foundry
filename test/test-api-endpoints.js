@@ -35,85 +35,23 @@ function tearDownDb() {
   return mongoose.connection.dropDatabase();
 }
 
-//// TESTS ////
-// check that landing page exists
-// describe('landing page', (() => {
-//   it('exists', (() => {
-//     chai.request(app)
-//       .get('/')
-//       .end((err, res) => {
-//         should.equal(err, null);
-//         res.should.have.status(200);
-//         res.should.be.html;
-//       });
-//   }));
-// }));
-//
-//
-// // check that login page exists
-// describe('login page', (() => {
-//   it('exists', ((done) => {
-//     chai.request(app)
-//       .get('/login')
-//       .end((err, res) => {
-//         // res.should.have.status(200);
-//         res.should.be.html;
-//         done();
-//       });
-//   }));
-// }));
-//
-// // check that home page exists
-// describe('home page', (() => {
-//   it('exists', ((done) => {
-//     chai.request(app)
-//       .get('/home')
-//       .end((err, res) => {
-//         // res.should.have.status(200);
-//         res.should.be.html;
-//         done();
-//       });
-//   }));
-// }));
-//
-// // check that edit page exists
-// describe('edit page', (() => {
-//   it('exists', ((done) => {
-//     chai.request(app)
-//       .get('/edit')
-//       .end((err, res) => {
-//         // res.should.have.status(200);
-//         res.should.be.html;
-//         done();
-//       });
-//   }));
-// }));
-//
-// describe('blah page', (() => {
-//   it('exists', ((done) => {
-//     chai.request(app)
-//       .get('/blah')
-//       .end((err, res) => {
-//         // res.should.have.status(200);
-//         res.should.be.html;
-//         done();
-//       });
-//   }));
-// }));
-
 
 // API routes
 // get haikus from a user
 describe('Haikus API', (() => {
   // Before tests run, start up the server. use separate test db
-  before(() => runServer(process.env.TEST_DATABASE_URL));
+  before(() => {
+    return runServer(process.env.TEST_DATABASE_URL)
+  });
 
   beforeEach(() => seedHaikuData());
 
   afterEach(() => tearDownDb())
 
   // Close server after these tests run
-  after(() => closeServer());
+  after(() => {
+    return closeServer()
+  });
 
   describe('GET Endpoint', (() => {
     it('should list user haikus on GET', (() => {
