@@ -40,8 +40,10 @@ function tearDownDb() {
 // get haikus from a user
 describe('Haikus API', (() => {
   // Before tests run, start up the server. use separate test db
+  const TEST_DATABASE_URL = 'mongodb://admin:pw1234@ds121222.mlab.com:21222/haiku-foundry-db-for-test';
+
   before(() => {
-    return runServer(process.env.TEST_DATABASE_URL)
+    return runServer(TEST_DATABASE_URL)
   });
 
   beforeEach(() => seedHaikuData());
