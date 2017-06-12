@@ -78,8 +78,8 @@ export class Compose extends React.Component {
     const line2 = this.state.line2Text;
     const line3 = this.state.line3Text;
     const haiku = this.haikuSubmitFormatter(line1, line2, line3)
-
-    this.props.dispatch(actions.saveHaiku(haiku));
+    const userId = this.props.userId
+    this.props.dispatch(actions.saveHaiku(haiku, userId));
     // clears the form or should i do another way?
     this.setState({line1Text: null,
       line2Text: null,
@@ -102,9 +102,12 @@ export class Compose extends React.Component {
   }
 
   handleSaveChanges() {
-    // i think this is going to work...
-    const haiku = this.haikuSubmitFormatter()
-    this.props.dispatch(actions.saveEditHaiku(haiku))
+    const line1 = this.state.line1Text;
+    const line2 = this.state.line2Text;
+    const line3 = this.state.line3Text;
+    const haiku = this.haikuSubmitFormatter(line1, line2, line3)
+    const haikuId = this.props.haikuId
+    this.props.dispatch(actions.saveEditHaiku(haiku, haikuId))
     this.setState({line1Text: null,
       line2Text: null,
       line3Text: null,

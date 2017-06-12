@@ -34,9 +34,9 @@ export const saveHaikuSuccess = () => ({
   type: SAVE_HAIKU_SUCCESS,
 });
 
-export const saveHaikuError = (message) => ({
+export const saveHaikuError = (errorMessage) => ({
   type: SAVE_HAIKU_ERROR,
-  message,
+  errorMessage,
 });
 
 export const getHaikusSuccess = (haikus) => ({
@@ -44,8 +44,9 @@ export const getHaikusSuccess = (haikus) => ({
   haikus
 });
 
-export const getHaikusError = () => ({
+export const getHaikusError = (errorMessage) => ({
   type: GET_HAIKUS_ERROR,
+  errorMessage
 });
 
 export const openEditHaiku = (haikuId, haikuText) => ({
@@ -58,26 +59,27 @@ export const saveEditHaikuSuccess = () => ({
   type: SAVE_EDIT_HAIKU_SUCCESS,
 });
 
-export const saveEditHaikuError = (message) => ({
+export const saveEditHaikuError = (errorMessage) => ({
   type: SAVE_EDIT_HAIKU_ERROR,
-  message,
+  errorMessage,
 });
 
 export const deleteHaikuSuccess = () => ({
   type: DELETE_HAIKU_SUCCESS,
 });
 
-export const deleteHaikuError = (message) => ({
+export const deleteHaikuError = (errorMessage) => ({
   type: DELETE_HAIKU_ERROR,
-  message,
+  errorMessage,
 });
 
 export const logOutSuccess = () => ({
   type: LOGOUT_SUCCESS,
 });
 
-export const logOutError = () => ({
+export const logOutError = (errorMessage) => ({
   type: LOGOUT_ERROR,
+  errorMessage
 });
 
 export const resetSaveDialog = () => ({
@@ -116,10 +118,10 @@ export const logOutUser = () => {
 
 
 // Get User's Haikus for Sidebar
-export const getHaikus = () => {
-  return (dispatch, getState) => {
-    const userId = getState().userId;
-    console.log('userId is ' + userId)
+export const getHaikus = (userId) => {
+  return (dispatch) => {
+    // const userId = getState().userId;
+    // console.log('userId is ' + userId)
     return fetch(`/api/haikus/${userId}`)
     // return fetch(`//localhost:3001/api/haikus/${userId}`)
     .then((response) => {
@@ -131,29 +133,24 @@ export const getHaikus = () => {
       return response;
     })
     .then(response => response.json())
-    // .then(response => {
-    //   // console.log(response.json())
-    //   response.json()
-    // })
     .then((haikus) => {
       dispatch(getHaikusSuccess(haikus))
     })
-    .catch(() => dispatch(getHaikusError()));
+    .catch((error) => dispatch(getHaikusError(error)));
   }
 }
 
 
 // Save a Haiku
-export const saveHaiku = (haiku) => {
-  return (dispatch, getState) => {
-    const userId = getState().userId;
+export const saveHaiku = (haiku, userId) => {
+  return (dispatch) => {
+    // const userId = getState().userId;
     const date = new Date().toString();
     const haikuObj = {
       haikuText: haiku,
       userId: userId,
       date: date
     }
-
     // return fetch('//localhost:3001/api/haikus',
     return fetch('/api/haikus',
       { method: "POST",
@@ -181,12 +178,10 @@ export const saveHaiku = (haiku) => {
 }
 
 // Edit a Haiku
-export const saveEditHaiku = (haikuText) => {
-  return (dispatch, getState) => {
-    const haikuId = getState().haikuIdToEdit;
-    // const date = new Date();
+export const saveEditHaiku = (haikuText, haikuId) => {
+  return (dispatch) => {
+    // const haikuId = getState().haikuIdToEdit;
     const date = new Date().toString();
-    // return fetch(`//localhost:3001/api/haikus/${haikuId}`,
     return fetch(`/api/haikus/${haikuId}`,
       {
         method: 'PUT',
@@ -237,7 +232,7 @@ export const deleteHaiku = (haikuId) => {
     }
     return response;})
     .then(() => {
-      // dispatch(deleteHaikuSuccess());
+      dispatch(deleteHaikuSuccess());
       // make sure latest edit to haiku updated in state
       dispatch(getHaikus());
     })

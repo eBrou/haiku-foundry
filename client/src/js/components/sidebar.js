@@ -37,8 +37,14 @@ export class Sidebar extends React.Component {
   componentDidMount() {
     // call async action to get user's haikus
     // success action will update state with those haikus
-    // console.log('componentDidMount happening')
-    this.props.dispatch(actions.getHaikus())
+    const userId = this.props.userId
+    this.props.dispatch(actions.getHaikus(userId))
+  }
+
+  componentDidUpdate() {
+    // makes sure saved haikus are reloaded in sidebar on save
+    const userId = this.props.userId
+    this.props.dispatch(actions.getHaikus(userId))
   }
 
   handleClick(itemId, haikuText){
@@ -109,6 +115,7 @@ export class Sidebar extends React.Component {
 const mapStateToProps = (state, props) => ({
   savedHaikus: state.savedHaikus,
   email: state.email,
+  userId: state.userId,
 });
 
 export default connect(mapStateToProps)(Sidebar);
