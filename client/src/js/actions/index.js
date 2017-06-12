@@ -21,13 +21,16 @@ export const LOGOUT_ERROR = 'LOGOUT_ERROR';
 export const RESET_SAVE_DIALOG = 'RESET_SAVE_DIALOG';
 
 // action creators
-export const signInSuccess = () => ({
+export const signInSuccess = (email, uid) => ({
   type: SIGNIN_SUCCESS,
+  email,
+  uid,
 })
 
-export const signInError = (errorMessage) => ({
+export const signInError = (errorEmail, errorPassword) => ({
   type: SIGNIN_ERROR,
-  errorMessage
+  errorEmail,
+  errorPassword,
 })
 
 export const saveHaikuSuccess = () => ({
@@ -86,6 +89,22 @@ export const resetSaveDialog = () => ({
   type: RESET_SAVE_DIALOG,
 })
 
+// helper function to generate custom error messages from firebase
+const errorMessageGen = (errorCode) => {
+  switch (errorCode) {
+    case "auth/wrong-password":
+      return "Invalid password";
+    case "auth/user-not-found":
+      return "User not found";
+    case "auth/invalid-email":
+      return "Invalid email";
+    case "auth/email-already-in-use":
+        return "Email already in use"
+    default:
+      return null;
+  }
+}
+
 // ASync Actions
 
 // Login a user
@@ -93,8 +112,25 @@ export const resetSaveDialog = () => ({
 export const logInUser = (email, password) => {
   return (dispatch) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => dispatch(signInSuccess()))
-    .catch((error) => dispatch(signInError(error)))
+    .then(() => {
+      const userObj = firebase.auth().currentUser;
+      const uid = userObj.uid
+      const email = userObj.email
+      dispatch(signInSuccess(email, uid))
+    })
+    .catch((error) => {
+      let errorEmail;
+      let errorPassword
+      if(error.code === 'auth/wrong-password'){
+        errorPassword = errorMessageGen(error.code);
+        errorEmail = null;
+      }
+      else {
+        errorEmail = errorMessageGen(error.code);
+        errorPassword = null;
+      }
+      dispatch(signInError(errorEmail, errorPassword))
+    })
   }
 }
 

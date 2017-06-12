@@ -97,6 +97,9 @@ export class Compose extends React.Component {
   handleSaveDialogClose() {
     // resets boolean in redux state which opens/closes dialog
     this.props.dispatch(actions.resetSaveDialog())
+    // updates saved haikus in sidebar
+    const userId = this.props.userId
+    this.props.dispatch(actions.getHaikus(userId))
     // redirects to home
     this.setState({ redirectTo: true })
   }
@@ -105,7 +108,7 @@ export class Compose extends React.Component {
     const line1 = this.state.line1Text;
     const line2 = this.state.line2Text;
     const line3 = this.state.line3Text;
-    const haiku = this.haikuSubmitFormatter(line1, line2, line3)
+    const haiku = this.haikuSubmitFormatter(line1, line2, line2)
     const haikuId = this.props.haikuId
     this.props.dispatch(actions.saveEditHaiku(haiku, haikuId))
     this.setState({line1Text: null,

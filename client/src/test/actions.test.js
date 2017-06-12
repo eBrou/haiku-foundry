@@ -5,17 +5,23 @@ import { getHaikus } from '../js/actions/index';
 
 describe('signInSuccess', () => {
   it('Should return the action', () => {
-    const action = actions.signInSuccess();
+    const email = "test@test.com";
+    const uid = "1234";
+    const action = actions.signInSuccess(email, uid);
     expect(action.type).to.equal(actions.SIGNIN_SUCCESS);
+    expect(action.email).to.equal(email);
+    expect(action.uid).to.equal(uid);
   });
 });
 
 describe('signInError', () => {
   it('Should return the action', () => {
-    const errorMessage = "test"
-    const action = actions.signInError(errorMessage);
+    const errorEmail = "test email error";
+    const errorPassword = "test password error";
+    const action = actions.signInError(errorEmail, errorPassword);
     expect(action.type).to.equal(actions.SIGNIN_ERROR);
-    expect(action.errorMessage).to.equal(errorMessage);
+    expect(action.errorEmail).to.equal(errorEmail);
+    expect(action.errorPassword).to.equal(errorPassword);
   });
 });
 

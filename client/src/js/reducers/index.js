@@ -38,36 +38,21 @@ export const mainReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case actions.SIGNIN_SUCCESS: {
-      // console.log('signInSuccess triggered')
-      const user = firebase.auth().currentUser
+      // console.log(action.email, action.uid)
+      // const user = firebase.auth().currentUser
+      // const user = action.userObj
       // console.log(user);
       return Object.assign({}, state, {
         loggedIn: true,
-        email: user.email,
-        userId: user.uid,
+        email: action.email,
+        userId: action.uid,
         redirectTo: true,
       })
     }
     case actions.SIGNIN_ERROR: {
-      // console.log("SIGNIN_ERROR triggered")
-      // console.log(action.errorMessage)
-      const errorCode = action.errorMessage.code
-      // check to see if error from password so it can be directed to password error line
-      let errorEmail;
-      let errorPassword
-      if(errorCode === 'auth/wrong-password'){
-        errorPassword = errorMessageGen(errorCode);
-        errorEmail = null;
-      }
-      else {
-        errorEmail = errorMessageGen(errorCode);
-        errorPassword = null;
-      }
-
-
       return Object.assign({}, state, {
-        errorEmail: errorEmail,
-        errorPassword: errorPassword,
+        errorEmail: action.errorEmail,
+        errorPassword: action.errorPassword,
       });
     }
     case actions.SAVE_HAIKU_SUCCESS: {
@@ -105,7 +90,7 @@ export const mainReducer = (state = initialState, action) => {
        })
     }
     case actions.RESET_SAVE_DIALOG: {
-      console.log('reset save dialog happened');
+      // console.log('reset save dialog happened');
       return Object.assign({}, state, {
         savedDialog: false,
        })

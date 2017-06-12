@@ -41,11 +41,16 @@ export class Sidebar extends React.Component {
     this.props.dispatch(actions.getHaikus(userId))
   }
 
-  componentDidUpdate() {
-    // makes sure saved haikus are reloaded in sidebar on save
-    const userId = this.props.userId
-    this.props.dispatch(actions.getHaikus(userId))
-  }
+  // componentDidUpdate() {
+  //   // makes sure saved haikus are reloaded in sidebar on save
+  //   const userId = this.props.userId
+  //   this.props.dispatch(actions.getHaikus(userId))
+  // }
+  // componentWillUpdate(nextProps) {
+  //   // makes sure saved haikus are reloaded in sidebar on save
+  //   const userId = nextProps.userId
+  //   nextProps.dispatch(actions.getHaikus(userId))
+  // }
 
   handleClick(itemId, haikuText){
     // will open an edit page with selected haiku text
