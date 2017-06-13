@@ -36,8 +36,8 @@ export class Landing extends React.Component {
       <Header loginHeader={true}/>
       <div className='landingDivs landingDiv1'>
         <img src={crane} className='logos' alt='crane' />
-        <div className='landingTextDivs'>
-          <h1 className='landing-text'>Compose your own haikus</h1>
+        <div className='landingTextDivs landing-text-div-1'>
+          <h1 className='landing-text landing-text-1'>Compose your own haikus</h1>
         </div>
 
       </div>
@@ -53,12 +53,9 @@ export class Landing extends React.Component {
 
       <div className='landingDivs landingDiv3'>
         <img src={tree} className='logos' alt='tree' />
-        <div className='landingTextDivs'>
+        <div className='landingTextDivs landing-text-div3'>
           <h1 className='landing-text'>Ready to Get started?</h1>
-
-
-            <RaisedButton label="Click here to begin" style={{marginLeft: 25}} className="login-button" onClick={this.handleLoginClick} />
-
+          <RaisedButton label="Click here to begin" style={{marginLeft: 0}} className="login-button" onClick={this.handleLoginClick} />
         </div>
       </div>
 

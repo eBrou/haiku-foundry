@@ -11,7 +11,6 @@ import Header from './header';
 import ContentEditable from 'react-contenteditable';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-// import { Twitter } from 'react-sharingbuttons';
 import 'react-sharingbuttons/dist/main.css';
 import TwitterIcon from './twitter-icon';
 import crane from '../../css/images/crane.svg';
@@ -391,6 +390,9 @@ export class Compose extends React.Component {
               style={{width: 140,}}
               />
           )}
+        </div>
+        <div className='button-wrapper-3'>
+          <FlatButton label="Logout" onClick={this.handleLogout}/>
         </div>
           <Dialog
             title="Are you sure you'd like to delete this haiku?"
