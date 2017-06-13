@@ -18,3 +18,9 @@ body, html {
 main {
   padding-bottom: 150px;
 }
+
+/*@media only screen and (min-height: 900px) {
+  main {
+    padding-bottom: 100%;
+  }
+}*/

@@ -59,3 +59,10 @@
   border: none;
   opacity: .4;
 }
+
+
+@media only screen and (min-height: 840px) {
+  .login {
+    height: 1200px;
+  }
+}
