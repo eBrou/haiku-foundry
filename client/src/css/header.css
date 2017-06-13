@@ -19,7 +19,7 @@ a {
   font-size: 50px;
   margin-top: 0px;
   padding-top: 10px;
-  /*display: inline-block;*/
+  /*vertical-align: middle;*/
 }
 
 .headerOptions {
@@ -27,7 +27,7 @@ a {
   height: 30px;
   width: 150px;
   top: 23px;
-  right: 60px;
+  right: 30px;
 }
 
 .login-header {
@@ -47,6 +47,28 @@ a {
   border-radius: 100%;
 }
 
-login-button {
+@media only screen and (max-width: 950px) {
+  /*hide login/out button and logo*/
+  .logo-header {
+    display: none;
+  }
 
+  .headerOptions {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header h1 {
+    font-size: 30px;
+    padding-top: 20px;
+  }
+
+}
+
+@media only screen and (max-width: 350px) {
+  .header h1 {
+    font-size: 25px;
+    padding-top: 25px;
+  }
 }
