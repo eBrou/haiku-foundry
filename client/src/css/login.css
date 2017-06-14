@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+input:invalid {
+    box-shadow: none;
+}
+
 .loginWrapper {
   text-align: left;
   width: 300px;

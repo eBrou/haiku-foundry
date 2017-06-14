@@ -110,7 +110,6 @@ export const logInUser = (email, password) => (dispatch) => {
     .then(() => {
       const userObj = firebase.auth().currentUser;
       const uid = userObj.uid;
-      const email2 = userObj.email;
       dispatch(signInSuccess(email, uid));
     })
     .catch((error) => {
@@ -130,7 +129,11 @@ export const logInUser = (email, password) => (dispatch) => {
 
 export const signUpUser = (email, password) => (dispatch) => {
   firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(() => dispatch(signInSuccess()))
+    .then(() => {
+      const userObj = firebase.auth().currentUser;
+      const uid = userObj.uid;
+      dispatch(signInSuccess(email, uid));
+    })
     .catch(error => dispatch(signInError(error)));
 };
 
