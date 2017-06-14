@@ -55,7 +55,6 @@ export class Compose extends React.Component {
     this.haikuSubmitFormatter = this.haikuSubmitFormatter.bind(this);
     this.handleDeleteOpen = this.handleDeleteOpen.bind(this);
     this.handleBack = this.handleBack.bind(this);
-    // this.focus = this.focus.bind(this);
     this.handleQuestionOpen = this.handleQuestionOpen.bind(this);
     this.handleQuestionClose = this.handleQuestionClose.bind(this);
     this.handleDeleteConfirm = this.handleDeleteConfirm.bind(this);
@@ -65,9 +64,6 @@ export class Compose extends React.Component {
   }
 
   haikuSubmitFormatter(line1, line2, line3) {
-    // const line1 = this.state.line1Text;
-    // const line2 = this.state.line2Text;
-    // const line3 = this.state.line3Text;
     return `${line1} // ${line2} // ${line3}`
   }
 
@@ -79,7 +75,6 @@ export class Compose extends React.Component {
     const haiku = this.haikuSubmitFormatter(line1, line2, line3)
     const userId = this.props.userId
     this.props.dispatch(actions.saveHaiku(haiku, userId));
-    // clears the form or should i do another way?
     this.setState({line1Text: null,
       line2Text: null,
       line3Text: null,
@@ -107,7 +102,7 @@ export class Compose extends React.Component {
     const line1 = this.state.line1Text;
     const line2 = this.state.line2Text;
     const line3 = this.state.line3Text;
-    const haiku = this.haikuSubmitFormatter(line1, line2, line2)
+    const haiku = this.haikuSubmitFormatter(line1, line2, line3)
     const haikuId = this.props.haikuId
     this.props.dispatch(actions.saveEditHaiku(haiku, haikuId))
     this.setState({line1Text: null,
@@ -170,7 +165,6 @@ export class Compose extends React.Component {
   handleOnKeyUp () {
     // check to see if format is correct before enabling save & share buttons
     if (this.haikuFormat()) {
-      console.log("nicely formatted!")
       this.setState({buttonsDisabled: false})
       // populating twitterText state with haiku
       const line1 = this.state.line1Text;
@@ -178,7 +172,6 @@ export class Compose extends React.Component {
       const line3 = this.state.line3Text;
       const haiku = this.haikuSubmitFormatter(line1, line2, line3);
       this.setState({twitterText: haiku})
-      console.log(haiku)
     }
     else {
       this.setState({buttonsDisabled: true})
@@ -209,9 +202,10 @@ export class Compose extends React.Component {
 
   handleDeleteConfirm (){
     this.props.dispatch(actions.deleteHaiku(this.props.haikuId));
-    this.setState({openDeleteDialog: false,
-                   redirectTo: true,
-                  })
+    this.setState({
+      openDeleteDialog: false,
+      redirectTo: true,
+    });
   }
 
   handleDeleteCancel() {
@@ -230,11 +224,6 @@ export class Compose extends React.Component {
   handleQuestionClose() {
     this.setState({openQuestionDialog: false})
   }
-
-  // savedNoticeOnOff () {
-  //   // set savedNoticeClasses on and off
-  //   console.log('saved notice ON OFF')
-  // }
 
   componentDidMount (){
     // fill in blank lines or haiku to be edited
@@ -270,13 +259,8 @@ export class Compose extends React.Component {
     const text = `${this.state.twitterText} //// #Haiku via @haiku_foundry`
     const textEncoded = encodeURI(text).replace(/#/g, '%23');
     const fullUrl = `https://twitter.com/intent/tweet/?text=${textEncoded}`
-    // {this.state.redirectTo && (
-    //   <Refresh />
-    // )}
     return (
       <div className='compose'>
-
-
         {this.state.redirectTo && (
           <Redirect to={'/home'}/>
         )}
@@ -300,7 +284,6 @@ export class Compose extends React.Component {
             open={this.state.openQuestionDialog}
           />
         </div>
-
 
         <div className='input-div-containers'>
 
@@ -420,13 +403,10 @@ export class Compose extends React.Component {
             modal={true}
             open={this.props.savedDialog}
           />
-
-
       </div>
     )
   }
 }
-
 
 const mapStateToProps = (state, props) => ({
   loginErrorMessage: state.loginErrorMessage,

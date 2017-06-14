@@ -20,7 +20,6 @@ const config = {
 
 // consts for easier firebase usage
 const firebaseApp = firebase.initializeApp(config);
-const db = firebaseApp.database(); //the real-time database
 const auth = firebaseApp.auth(); //the firebase auth namespace
 
 const storageKey = 'KEY_FOR_LOCAL_STORAGE';
@@ -42,7 +41,6 @@ const RouteWhenAuthorized = ({component: Component, ...rest}) => (
     )
   )}/>
 )
-
 
 export default class App extends React.Component {
   state = {

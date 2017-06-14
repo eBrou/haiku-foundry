@@ -1,12 +1,10 @@
 import { expect } from 'chai';
 import * as actions from '../js/actions/index';
-import { getHaikus } from '../js/actions/index';
-
 
 describe('signInSuccess', () => {
   it('Should return the action', () => {
-    const email = "test@test.com";
-    const uid = "1234";
+    const email = 'test@test.com';
+    const uid = '1234';
     const action = actions.signInSuccess(email, uid);
     expect(action.type).to.equal(actions.SIGNIN_SUCCESS);
     expect(action.email).to.equal(email);
@@ -16,8 +14,8 @@ describe('signInSuccess', () => {
 
 describe('signInError', () => {
   it('Should return the action', () => {
-    const errorEmail = "test email error";
-    const errorPassword = "test password error";
+    const errorEmail = 'test email error';
+    const errorPassword = 'test password error';
     const action = actions.signInError(errorEmail, errorPassword);
     expect(action.type).to.equal(actions.SIGNIN_ERROR);
     expect(action.errorEmail).to.equal(errorEmail);
@@ -34,7 +32,7 @@ describe('saveHaikuSuccess', () => {
 
 describe('saveHaikuError', () => {
   it('Should return the action', () => {
-    const errorMessage = "test"
+    const errorMessage = 'test';
     const action = actions.saveHaikuError(errorMessage);
     expect(action.type).to.equal(actions.SAVE_HAIKU_ERROR);
     expect(action.errorMessage).to.equal(errorMessage);
@@ -43,7 +41,7 @@ describe('saveHaikuError', () => {
 
 describe('getHaikusSuccess', () => {
   it('Should return the action', () => {
-    const haikus = {test: 'test'}
+    const haikus = { test: 'test' };
     const action = actions.getHaikusSuccess(haikus);
     expect(action.type).to.equal(actions.GET_HAIKUS_SUCCESS);
     expect(action.haikus).to.equal(haikus);
@@ -52,7 +50,7 @@ describe('getHaikusSuccess', () => {
 
 describe('getHaikusError', () => {
   it('Should return the action', () => {
-    const errorMessage = "test";
+    const errorMessage = 'test';
     const action = actions.getHaikusError(errorMessage);
     expect(action.type).to.equal(actions.GET_HAIKUS_ERROR);
     expect(action.errorMessage).to.equal(errorMessage);
@@ -61,8 +59,8 @@ describe('getHaikusError', () => {
 
 describe('openEditHaiku', () => {
   it('Should return the action', () => {
-    const haikuId = "12345"
-    const haikuText = "testtesttest"
+    const haikuId = '12345';
+    const haikuText = 'testtesttest';
     const action = actions.openEditHaiku(haikuId, haikuText);
     expect(action.type).to.equal(actions.OPEN_EDIT_HAIKU);
     expect(action.haikuId).to.equal(haikuId);
@@ -79,7 +77,7 @@ describe('saveEditHaikuSuccess', () => {
 
 describe('saveEditHaikuError', () => {
   it('Should return the action', () => {
-    const errorMessage = "test"
+    const errorMessage = 'test';
     const action = actions.saveEditHaikuError(errorMessage);
     expect(action.type).to.equal(actions.SAVE_EDIT_HAIKU_ERROR);
     expect(action.errorMessage).to.equal(errorMessage);
@@ -95,7 +93,7 @@ describe('deleteHaikuSuccess', () => {
 
 describe('deleteHaikuError', () => {
   it('Should return the action', () => {
-    const errorMessage = "test"
+    const errorMessage = 'test'
     const action = actions.deleteHaikuError(errorMessage);
     expect(action.type).to.equal(actions.DELETE_HAIKU_ERROR);
     expect(action.errorMessage).to.equal(errorMessage);
@@ -111,7 +109,7 @@ describe('logOutSuccess', () => {
 
 describe('logOutError', () => {
   it('Should return the action', () => {
-    const errorMessage = "test"
+    const errorMessage = 'test';
     const action = actions.logOutError(errorMessage);
     expect(action.type).to.equal(actions.LOGOUT_ERROR);
     expect(action.errorMessage).to.equal(errorMessage);

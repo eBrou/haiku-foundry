@@ -11,7 +11,7 @@ export class Header extends React.Component {
     super(props);
     this.state = {
       redirectToLogin: false,
-      redirectToLanding: false
+      redirectToLanding: false,
     };
     this.handleLogout = this.handleLogout.bind(this);
     this.handleLoginClick = this.handleLoginClick.bind(this);
@@ -60,13 +60,7 @@ export class Header extends React.Component {
           {this.props.logoutHeader ? (
             <FlatButton label="Logout" onClick={this.handleLogout}/>
           ) : null }
-
-
-
-
         </div>
-
-
       </div>
     )
   }

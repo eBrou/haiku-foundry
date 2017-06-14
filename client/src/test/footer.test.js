@@ -15,5 +15,4 @@ describe('<Footer />', () => {
     expect(wrapper.text()).to.equal('Created by Eric Broucek ');
     expect(wrapper.find('i')).to.have.length(1);
   });
-
 });

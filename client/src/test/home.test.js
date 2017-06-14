@@ -11,7 +11,6 @@ describe('<Home />', () => {
   it('renders a div component with 3 children', () => {
     const wrapper = shallow(<Home />);
     expect(wrapper.find('div').children()).to.have.length(3);
-
   });
 
   it('renders correct children', () => {
@@ -20,5 +19,4 @@ describe('<Home />', () => {
     expect(wrapper.find(Sidebar)).to.have.length(1);
     expect(wrapper.find(Compose)).to.have.length(1);
   });
-
 });
