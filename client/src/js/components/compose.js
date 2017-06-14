@@ -1,22 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect, Refresh } from 'react-router-dom';
-import Syllable from 'syllable';
-import firebase from 'firebase';
-import 'isomorphic-fetch';
-import * as actions from '../actions/index';
-import '../../css/compose.css';
-import Sidebar from './sidebar';
-import Header from './header';
 import ContentEditable from 'react-contenteditable';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import 'react-sharingbuttons/dist/main.css';
-import TwitterIcon from './twitter-icon';
-import crane from '../../css/images/crane.svg';
 import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
-
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import Syllable from 'syllable';
+import 'isomorphic-fetch';
+import * as actions from '../actions/index';
+import '../../css/compose.css';
+import TwitterIcon from './twitter-icon';
+import crane from '../../css/images/crane.svg';
 
 
 export class Compose extends React.Component {
@@ -72,10 +67,10 @@ export class Compose extends React.Component {
     const line1 = this.state.line1Text;
     const line2 = this.state.line2Text;
     const line3 = this.state.line3Text;
-    const haiku = this.haikuSubmitFormatter(line1, line2, line3)
-    const userId = this.props.userId
+    const haiku = this.haikuSubmitFormatter(line1, line2, line3);
+    const userId = this.props.userId;
     this.props.dispatch(actions.saveHaiku(haiku, userId));
-    this.setState({line1Text: null,
+    this.setState({ line1Text: null,
       line2Text: null,
       line3Text: null,
       line1Syl: 0,
@@ -84,28 +79,28 @@ export class Compose extends React.Component {
       syl1Classes: 'syllablesDiv',
       syl2Classes: 'syllablesDiv',
       syl3Classes: 'syllablesDiv',
-      })
+    });
   }
 
 
   handleSaveDialogClose() {
     // resets boolean in redux state which opens/closes dialog
-    this.props.dispatch(actions.resetSaveDialog())
+    this.props.dispatch(actions.resetSaveDialog());
     // updates saved haikus in sidebar
-    const userId = this.props.userId
-    this.props.dispatch(actions.getHaikus(userId))
+    const userId = this.props.userId;
+    this.props.dispatch(actions.getHaikus(userId));
     // redirects to home
-    this.setState({ redirectTo: true })
+    this.setState({ redirectTo: true });
   }
 
   handleSaveChanges() {
     const line1 = this.state.line1Text;
     const line2 = this.state.line2Text;
     const line3 = this.state.line3Text;
-    const haiku = this.haikuSubmitFormatter(line1, line2, line3)
-    const haikuId = this.props.haikuId
-    this.props.dispatch(actions.saveEditHaiku(haiku, haikuId))
-    this.setState({line1Text: null,
+    const haiku = this.haikuSubmitFormatter(line1, line2, line3);
+    const haikuId = this.props.haikuId;
+    this.props.dispatch(actions.saveEditHaiku(haiku, haikuId));
+    this.setState({ line1Text: null,
       line2Text: null,
       line3Text: null,
       line1Syl: 0,
@@ -114,80 +109,78 @@ export class Compose extends React.Component {
       syl1Classes: 'syllablesDiv',
       syl2Classes: 'syllablesDiv',
       syl3Classes: 'syllablesDiv',
-      })
+    });
   }
 
   // function to determine whether to add green class to counter
   syllableClassGen(syllables, counterLineNum) {
     // check whether line should have 5 or 7 syllables
     const num = counterLineNum === 2 ? 7 : 5;
-    if (syllables === num){
-      return "syllablesDiv green"
+    if (syllables === num) {
+      return 'syllablesDiv green';
     }
-    return "syllablesDiv"
+    return 'syllablesDiv';
   }
-
 
   // uses syllable component but applies to each word individually for total line tally
   syllableCounter(input) {
     let sylCount = 0;
-    const inputArr = input.split(" ");
-    inputArr.forEach(word => {
+    const inputArr = input.split(' ');
+    inputArr.forEach((word) => {
       // stop spaces from adding to count
-      const trimmed = word.replace('&nbsp;', "");
+      const trimmed = word.replace('&nbsp;', '');
       if (trimmed !== '') {
-        sylCount += Syllable(trimmed)
+        sylCount += Syllable(trimmed);
       }
-    })
+    });
     return sylCount;
   }
 
   // main functionality for handling text changes to the 3 lines
   handleTextMain(event, lineNum) {
-    const input = event.target.value
+    const input = event.target.value;
     const syllables = this.syllableCounter(input);
     const obj = {};
     // fills obj with dynamic keys based on lineNum
-    obj[`line${lineNum}Text`] = input,
-    obj[`line${lineNum}Syl`] = syllables,
-    obj[`syl${lineNum}Classes`] = this.syllableClassGen(syllables, lineNum)
+    obj[`line${lineNum}Text`] = input;
+    obj[`line${lineNum}Syl`] = syllables;
+    obj[`syl${lineNum}Classes`] = this.syllableClassGen(syllables, lineNum);
     this.setState(obj);
   }
 
-  //helper function to check haiku formatting
-  haikuFormat(){
-    if(this.state.line1Syl === 5 && this.state.line2Syl === 7 && this.state.line3Syl === 5){
+  // helper function to check haiku formatting
+  haikuFormat() {
+    if(this.state.line1Syl === 5 && this.state.line2Syl === 7 && this.state.line3Syl === 5) {
       return true
     }
     return false
   }
 
-  handleOnKeyUp () {
+  handleOnKeyUp() {
     // check to see if format is correct before enabling save & share buttons
     if (this.haikuFormat()) {
-      this.setState({buttonsDisabled: false})
+      this.setState({ buttonsDisabled: false });
       // populating twitterText state with haiku
       const line1 = this.state.line1Text;
       const line2 = this.state.line2Text;
       const line3 = this.state.line3Text;
       const haiku = this.haikuSubmitFormatter(line1, line2, line3);
-      this.setState({twitterText: haiku})
-    }
-    else {
-      this.setState({buttonsDisabled: true})
+      this.setState({ twitterText: haiku });
+    } else {
+      this.setState({ buttonsDisabled: true });
     }
   }
 
   handleTextChangeLine1(event) {
-    this.handleTextMain(event, 1)
+    this.handleTextMain(event, 1);
   }
 
   handleTextChangeLine2(event) {
-    this.handleTextMain(event, 2)
+    this.handleTextMain(event, 2);
   }
 
   handleTextChangeLine3(event) {
-    this.handleTextMain(event, 3)
+    this.handleTextMain(event, 3);
   }
 
 
@@ -196,11 +189,11 @@ export class Compose extends React.Component {
     this.props.dispatch(actions.logOutUser());
   }
 
-  handleDeleteOpen (){
-    this.setState({openDeleteDialog: true})
+  handleDeleteOpen() {
+    this.setState({ openDeleteDialog: true })
   }
 
-  handleDeleteConfirm (){
+  handleDeleteConfirm() {
     this.props.dispatch(actions.deleteHaiku(this.props.haikuId));
     this.setState({
       openDeleteDialog: false,
@@ -211,27 +204,27 @@ export class Compose extends React.Component {
   }
 
   handleDeleteCancel() {
-    this.setState({openDeleteDialog: false})
+    this.setState({ openDeleteDialog: false });
   }
 
 
   handleBack() {
-    this.setState({redirectTo: true});
+    this.setState({ redirectTo: true });
   }
 
   handleQuestionOpen() {
-    this.setState({openQuestionDialog: true})
+    this.setState({ openQuestionDialog: true });
   }
 
   handleQuestionClose() {
-    this.setState({openQuestionDialog: false})
+    this.setState({ openQuestionDialog: false });
   }
 
-  componentDidMount (){
+  componentDidMount() {
     // fill in blank lines or haiku to be edited
-    const line1 = this.props.line1 || ''
-    const line2 = this.props.line2 || ''
-    const line3 = this.props.line3 || ''
+    const line1 = this.props.line1 || '';
+    const line2 = this.props.line2 || '';
+    const line3 = this.props.line3 || '';
     // update the counters and their classes
     const syl1 = this.syllableCounter(line1);
     const syl2 = this.syllableCounter(line2);
@@ -250,24 +243,28 @@ export class Compose extends React.Component {
       syl2Classes: classLine2,
       syl3Classes: classLine3,
       buttonsDisabled: this.props.buttonsDisabled,
-    })
+    });
     // loads haiku selected to be edited into state
     const haiku = this.haikuSubmitFormatter(line1, line2, line3);
-    this.setState({twitterText: haiku});
+    this.setState({ twitterText: haiku });
   }
 
-
-  render () {
-    const text = `${this.state.twitterText} //// #Haiku via @haiku_foundry`
+  render() {
+    const text = `${this.state.twitterText} //// #Haiku via @haiku_foundry`;
     const textEncoded = encodeURI(text).replace(/#/g, '%23');
-    const fullUrl = `https://twitter.com/intent/tweet/?text=${textEncoded}`
+    const fullUrl = `https://twitter.com/intent/tweet/?text=${textEncoded}`;
     return (
-      <div className='compose'>
+      <div className="compose">
         {this.state.redirectTo && (
-          <Redirect to={'/home'}/>
+          <Redirect to={'/home'} />
         )}
         <div className="sub-header">
-          <img src={crane} className='crane-logo logos' alt='crane' />
+          <img
+            src={crane}
+            className="crane-logo logos"
+            alt="crane"
+            onClick={this.handleQuestionOpen}
+          />
         </div>
 
         <div className="question-div">
@@ -276,18 +273,27 @@ export class Compose extends React.Component {
             onClick={this.handleQuestionOpen}
           />
           <Dialog
-            title="Reminder:  A haiku is a simple poem with 3 lines: the 1st & 3rd lines have 5 syllables, while the 2nd line has 7."
-            actions={<FlatButton
-                      label="Got it!"
-                      primary={true}
-                      onTouchTap={this.handleQuestionClose}
-                    />}
+            title="Reminder:  A haiku is a simple poem with 3 lines: the 1st & 3rd lines
+             have 5 syllables, while the 2nd line has 7.  Punctuation & rhyme are
+              up to you.  Here's an example:"
+            actions={
+              <FlatButton
+                label="Got it!"
+                primary={true}
+                onTouchTap={this.handleQuestionClose}
+              />
+            }
             modal={true}
             open={this.state.openQuestionDialog}
-          />
+          >
+            <p>"Overgrown garden </p>
+            <p>sways in the breeze. Lazy dogs </p>
+            <p>love lying in the sun." </p>
+          </Dialog>
+
         </div>
 
-        <div className='input-div-containers'>
+        <div className="input-div-containers">
 
           <ContentEditable
             className="haiku_input_divs haiku_input_div1 color_gradient_text"
@@ -301,7 +307,7 @@ export class Compose extends React.Component {
             {this.state.line1Syl}
           </div>
         </div>
-        <div className='input-div-containers'>
+        <div className="input-div-containers">
           <ContentEditable
             className="haiku_input_divs haiku_input_div2 color_gradient_text"
             html={this.state.line2Text}
@@ -314,7 +320,7 @@ export class Compose extends React.Component {
           </div>
         </div>
 
-        <div className='input-div-containers'>
+        <div className="input-div-containers">
           <ContentEditable
             className="haiku_input_divs haiku_input_div3 color_gradient_text"
             html={this.state.line3Text}
@@ -328,14 +334,14 @@ export class Compose extends React.Component {
         </div>
 
 
-        <div className='button-wrapper-1'>
+        <div className="button-wrapper-1">
           {this.props.saveButton && (
             <RaisedButton
               className="save-material-buttons"
               label="Save"
               disabled={this.state.buttonsDisabled}
               onClick={this.handleSave}
-              style={{width: 140}}
+              style={{ width: 140 }}
             />
           )}
           {this.props.saveChangesButton && (
@@ -344,7 +350,7 @@ export class Compose extends React.Component {
               label="Save Changes"
               disabled={this.state.buttonsDisabled}
               onClick={this.handleSaveChanges}
-              style={{width: 140}}
+              style={{ width: 140 }}
             />
           )}
           <RaisedButton
@@ -354,17 +360,16 @@ export class Compose extends React.Component {
             label="Twitter"
             icon={<TwitterIcon />}
             disabled={this.state.buttonsDisabled}
-            style={{width: 140,}}
+            style={{ width: 140 }}
           />
         </div>
-        <div className='button-wrapper-2'>
+        <div className="button-wrapper-2">
           {this.props.deleteButton && (
             <RaisedButton
               label="Delete"
               className="delete-button"
               onClick={this.handleDeleteOpen}
-              style={{width: 140,
-                    }}
+              style={{ width: 140 }}
             />
           )}
           {this.props.backButton && (
@@ -372,41 +377,44 @@ export class Compose extends React.Component {
               label="Go Back"
               className="back-button"
               onClick={this.handleBack}
-              style={{width: 140,}}
-              />
+              style={{ width: 140 }}
+            />
           )}
         </div>
-        <div className='button-wrapper-3'>
-          <FlatButton label="Logout" onClick={this.handleLogout}/>
+        <div className="button-wrapper-3">
+          <FlatButton label="Logout" onClick={this.handleLogout} />
         </div>
-          <Dialog
-            title="Are you sure you'd like to delete this haiku?"
-            actions={[<FlatButton
-                      label="No, Cancel"
-                      primary={true}
-                      onTouchTap={this.handleDeleteCancel}
-                      />,
-                      <FlatButton
-                      label="Yes, Delete"
-                      primary={true}
-                      onTouchTap={this.handleDeleteConfirm}
-                      />
-                    ]}
-            modal={true}
-            open={this.state.openDeleteDialog}
-          />
-          <Dialog
-            title="Your haiku has been saved."
-            actions={<FlatButton
-                      label="Ok"
-                      primary={true}
-                      onTouchTap={this.handleSaveDialogClose}
-                    />}
-            modal={true}
-            open={this.props.savedDialog}
-          />
+        <Dialog
+          title="Are you sure you'd like to delete this haiku?"
+          actions={[
+            <FlatButton
+              label="No, Cancel"
+              primary={true}
+              onTouchTap={this.handleDeleteCancel}
+            />,
+            <FlatButton
+              label="Yes, Delete"
+              primary={true}
+              onTouchTap={this.handleDeleteConfirm}
+            />,
+          ]}
+          modal={true}
+          open={this.state.openDeleteDialog}
+        />
+        <Dialog
+          title="Your haiku has been saved."
+          actions={
+            <FlatButton
+              label="Ok"
+              primary={true}
+              onTouchTap={this.handleSaveDialogClose}
+            />
+          }
+          modal={true}
+          open={this.props.savedDialog}
+        />
       </div>
-    )
+    );
   }
 }
 
@@ -415,7 +423,7 @@ const mapStateToProps = (state, props) => ({
   email: state.email,
   userId: state.userId,
   haikuId: state.haikuIdToEdit,
-  savedDialog: state.savedDialog
+  savedDialog: state.savedDialog,
 });
 
 export default connect(mapStateToProps)(Compose);
