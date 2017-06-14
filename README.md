@@ -21,6 +21,7 @@ Screen Shots
 ![screenshot](http://i53.photobucket.com/albums/g48/tallericbucket/landing%20page_zpsaqkn1bl6.jpeg)
 
 **Login Page:**
+
 ![screenshot](http://i53.photobucket.com/albums/g48/tallericbucket/login%20page_zpscioacvuj.jpeg)
 
 **Editing on the Home Page:**
