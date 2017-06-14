@@ -206,6 +206,8 @@ export class Compose extends React.Component {
       openDeleteDialog: false,
       redirectTo: true,
     });
+    const userId = this.props.userId;
+    this.props.dispatch(actions.getHaikus(userId));
   }
 
   handleDeleteCancel() {
