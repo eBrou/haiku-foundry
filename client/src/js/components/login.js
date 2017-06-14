@@ -75,12 +75,15 @@ export class Login extends React.Component {
     this.props.dispatch(actions.logInUser(email, password));
   }
 
-  handleDemoLogin() {
+  handleDemoLogin(event) {
+    event.preventDefault();
+    const email = 'test1@test.com';
+    const pw = 'pw1234';
     this.setState({
-      email: 'test1@test.com',
-      password: 'pw1234',
+      email: email,
+      password: pw,
     });
-    this.handleLogin();
+    this.props.dispatch(actions.logInUser(email, pw));
   }
 
 
