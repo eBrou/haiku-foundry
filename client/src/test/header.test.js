@@ -16,5 +16,4 @@ describe('<Header />', () => {
     expect(wrapper.find('h1')).to.have.length(1);
     expect(wrapper.find('div.headerOptions')).to.have.length(1);
   });
-
 });

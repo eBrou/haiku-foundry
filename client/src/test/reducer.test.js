@@ -12,8 +12,7 @@ const initialState = {
   errorEmail: null,
   errorPassword: null,
   savedDialog: false,
-  redirectTo: false
-}
+  redirectT;
 
 
 describe('mainReducer', () => {

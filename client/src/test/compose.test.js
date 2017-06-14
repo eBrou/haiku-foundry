@@ -1,12 +1,12 @@
 import React from 'react';
-import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import { BrowserRouter as Router, Route, Match, Redirect, Switch, Link } from 'react-router-dom';
-import { Compose } from '../js/components/Compose';
-import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
 import ContentEditable from 'react-contenteditable';
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
+import { Compose } from '../js/components/Compose';
+
 
 describe('<Compose />', () => {
   it('renders component with class "compose"', () => {
@@ -29,5 +29,4 @@ describe('<Compose />', () => {
     expect(wrapper.find('div.button-wrapper-2')).to.have.length(1);
     expect(wrapper.find(RaisedButton)).to.have.length(1);
   });
-
 });

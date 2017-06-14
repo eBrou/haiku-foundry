@@ -6,9 +6,7 @@
 
 .input-div-containers {
   width: 100%;
-  /*border: 1px solid black;*/
   margin: 0 auto;
-  /*position: relative;*/
 }
 
 .haiku_input_divs {
@@ -19,11 +17,9 @@
   width: 75%;
   max-width: 800px;
   height: auto;
-  /*margin: 40px 5% 25px 15%;*/
   margin: 40px auto 25px auto;
   font-size: 50px;
   padding: 5px 0;
-  /*border: 1px dotted blue;*/
   border-bottom: 1px solid rgba(77, 208, 225, 0.6)
 }
 
@@ -33,7 +29,6 @@
 
 .color_gradient_text {
   color: black;
-  /*background: -webkit-linear-gradient(#eee, #333);*/
   background: linear-gradient(
     #00ACC1, #E0F7FA
   );
@@ -70,9 +65,7 @@
   text-align: center;
   width: 100%;
   height: 100px;
-  margin: 30px 0 50px 0
-  /*border: 1px solid black;*/
-  /*margin: 0 42% 0 auto;*/
+  margin: 30px 0 50px 0;
 }
 
 .sub-header {
@@ -82,25 +75,16 @@
   width: 320px;
   height: auto;
   margin: 0px auto 0 auto;
-  /*border: 1px solid grey;*/
-
 }
 
 .crane-logo {
   display: inline-block;
-  /*position: absolute;*/
-  /*left: 10px;*/
-  /*float: left;*/
-  /*vertical-align: middle;*/
-  /*position: relative;*/
   width: 80px;
   height: 80px;
-  /*margin: 10px auto 0 auto;*/
   right: 10px;
   border: 1px solid #4DD0E1;
   opacity: .6;
 }
-
 
 .question-div {
   position: absolute;
@@ -124,19 +108,12 @@
 .button-wrapper-1 {
   margin-top: 50px;
   text-align: center;
-  /*border: 1px solid black;*/
   position: relative
 }
 
 .button-wrapper-2 {
   margin-top: 25px;
 }
-
-/*.button-wrapper-1 > p {
-  position: absolute;
-  display: inline-block;
-
-}*/
 
 .delete-button {
   margin-right: 15px;
@@ -157,7 +134,6 @@
   .button-wrapper-3 {
     display: block;
   }
-
 }
 
 /* for ipad and smaller*/
@@ -191,6 +167,12 @@
     right: 5px;
   }
 
+}
+
+@media only screen and (max-width: 400px) {
+  .crane-logo {
+    margin-left: 0px;
+  }
 }
 
 @media only screen and (min-width: 750px) {
