@@ -134,7 +134,18 @@ export const signUpUser = (email, password) => (dispatch) => {
       const uid = userObj.uid;
       dispatch(signInSuccess(email, uid));
     })
-    .catch(error => dispatch(signInError(error)));
+    .catch((error) => {
+      let errorEmail;
+      let errorPassword;
+      if (error.code === 'auth/wrong-password') {
+        errorPassword = errorMessageGen(error.code);
+        errorEmail = null;
+      } else {
+        errorEmail = errorMessageGen(error.code);
+        errorPassword = null;
+      }
+      dispatch(signInError(errorEmail, errorPassword));
+    });
 };
 
 
