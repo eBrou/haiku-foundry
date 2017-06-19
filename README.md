@@ -6,9 +6,9 @@ Haiku Foundry is an app for creating and sharing your own haikus.  Everyone from
 
 * Create an account or use the demo login button to take a look around
 * Compose original haikus and save them
-* Syllable counters give you instantaneous feedback on your formatting
+* Syllable counters give you instantaneous visual feedback on your formatting
 * Share your creations via Twitter
-* Go back and edit your saved haikus
+* Go back and edit your saved haikus or share them later
 
 Live Site
 ---------
@@ -37,7 +37,7 @@ Technical
 Haiku Foundry features a mobile-first design and utilizes the following technologies:
 
 * HTML5, CSS, Javascript, Node JS, Express, MongoDB, Mongoose, React, Redux, Firebase
-* Unit testing & continous integration with Chai, Enzyme, & Travis CI
+* Unit testing & continuous integration with Chai, Enzyme, & Travis CI
 
 Author
 ------
