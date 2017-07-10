@@ -4,10 +4,9 @@
 
 .footerComponent {
   color: white;
-  padding: 1rem;
+  padding: .8rem;
   text-align: center;
-  font-size: 14px;
-  height: 20px;
+  font-size: 12px;
   background-image:
     linear-gradient(
       to right,

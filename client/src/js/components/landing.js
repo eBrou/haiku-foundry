@@ -52,7 +52,7 @@ export class Landing extends React.Component {
         <div className="landingDivs landingDiv3">
           <img src={tree} className="logos" alt="tree" />
           <div className="landingTextDivs landing-text-div3">
-            <h1 className="landing-text">Ready to Get started?</h1>
+            <h1 className="landing-text landing-text-3">Ready to Get started?</h1>
             <RaisedButton
               label="Click here to begin"
               style={{ marginLeft: 0 }}

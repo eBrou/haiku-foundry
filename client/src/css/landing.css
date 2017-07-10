@@ -2,7 +2,11 @@
   position: relative;
   height: 250px;
   width: 700px;
-  margin: 50px auto 40px auto;
+  margin: 30px auto 30px auto;
+}
+
+.landing-text-1 {
+  margin-top: 60px;
 }
 
 .landingDiv3 {
@@ -22,7 +26,7 @@
 
 .landingTextDivs {
   width: auto;
-  margin-left: 150px;
+  margin-left: 130px;
   position: absolute;
   display: inline-block;
   height: 100%;
@@ -38,7 +42,8 @@
   font-family: 'Open Sans', sans-serif;
   font-style: italic;
   letter-spacing: 0.1em;
-  line-height: 70px;
+  /*line-height: 70px;*/
+  line-height: 1.5em;
   color: #4DD0E1;
 }
 

@@ -138,7 +138,8 @@ export class Compose extends React.Component {
 
   // main functionality for handling text changes to the 3 lines
   handleTextMain(event, lineNum) {
-    const input = event.target.value;
+    // need to replace br tag for safari/firefox
+    const input = event.target.value.replace('<br>', '');
     const syllables = this.syllableCounter(input);
     const obj = {};
     // fills obj with dynamic keys based on lineNum
@@ -284,6 +285,7 @@ export class Compose extends React.Component {
               />
             }
             modal={true}
+            contentStyle={{maxWidth: '98%'}}
             open={this.state.openQuestionDialog}
           >
             <p>"Overgrown garden </p>
@@ -293,97 +295,106 @@ export class Compose extends React.Component {
 
         </div>
 
-        <div className="input-div-containers">
+        <div className="input-div-wrapper">
+          <div className="input-div-containers">
 
-          <ContentEditable
-            className="haiku_input_divs haiku_input_div1 color_gradient_text"
-            html={this.state.line1Text}
-            disabled={false}
-            onChange={this.handleTextChangeLine1}
-            onKeyUp={this.handleOnKeyUp}
-            ref={(input) => { this.line1TextInput = input; }}
-          />
+            <ContentEditable
+              className="haiku_input_divs haiku_input_div1 color_gradient_text"
+              html={this.state.line1Text}
+              disabled={false}
+              onChange={this.handleTextChangeLine1}
+              onKeyUp={this.handleOnKeyUp}
+              ref={(input) => { this.line1TextInput = input; }}
+            />
+
+          </div>
+          <div className="input-div-containers">
+            <ContentEditable
+              className="haiku_input_divs haiku_input_div2 color_gradient_text"
+              html={this.state.line2Text}
+              disabled={false}
+              onChange={this.handleTextChangeLine2}
+              onKeyUp={this.handleOnKeyUp}
+            />
+          </div>
+
+          <div className="input-div-containers">
+            <ContentEditable
+              className="haiku_input_divs haiku_input_div3 color_gradient_text"
+              html={this.state.line3Text}
+              disabled={false}
+              onChange={this.handleTextChangeLine3}
+              onKeyUp={this.handleOnKeyUp}
+            />
+
+          </div>
+        </div>
+
+        <div className="syl-wrapper-div">
           <div className={this.state.syl1Classes} >
             {this.state.line1Syl}
           </div>
-        </div>
-        <div className="input-div-containers">
-          <ContentEditable
-            className="haiku_input_divs haiku_input_div2 color_gradient_text"
-            html={this.state.line2Text}
-            disabled={false}
-            onChange={this.handleTextChangeLine2}
-            onKeyUp={this.handleOnKeyUp}
-          />
           <div className={this.state.syl2Classes}>
             {this.state.line2Syl}
           </div>
-        </div>
-
-        <div className="input-div-containers">
-          <ContentEditable
-            className="haiku_input_divs haiku_input_div3 color_gradient_text"
-            html={this.state.line3Text}
-            disabled={false}
-            onChange={this.handleTextChangeLine3}
-            onKeyUp={this.handleOnKeyUp}
-          />
           <div className={this.state.syl3Classes}>
             {this.state.line3Syl}
           </div>
         </div>
 
+        <div className="all-button-wrap">
+          <div className="button-wrapper-1">
+            {this.props.saveButton && (
+              <RaisedButton
+                className="save-material-buttons"
+                label="Save"
+                disabled={this.state.buttonsDisabled}
+                onClick={this.handleSave}
+                style={{ width: 140 }}
+              />
+            )}
+            {this.props.saveChangesButton && (
+              <RaisedButton
+                className="save-material-buttons"
+                label="Save Changes"
+                disabled={this.state.buttonsDisabled}
+                onClick={this.handleSaveChanges}
+                style={{ width: 140 }}
+              />
+            )}
+            <RaisedButton
+              href={fullUrl}
+              target="_blank"
+              className="twitter-material-button"
+              label="Twitter"
+              icon={<TwitterIcon />}
+              disabled={this.state.buttonsDisabled}
+              style={{ width: 140 }}
+            />
+          </div>
+          <div className="button-wrapper-2">
+            {this.props.deleteButton && (
+              <RaisedButton
+                label="Delete"
+                className="delete-button"
+                onClick={this.handleDeleteOpen}
+                style={{ width: 140 }}
+              />
+            )}
+            {this.props.backButton && (
+              <RaisedButton
+                label="Go Back"
+                className="back-button"
+                onClick={this.handleBack}
+                style={{ width: 140 }}
+              />
+            )}
+          </div>
+          <div className="button-wrapper-3">
+            <FlatButton label="Logout" onClick={this.handleLogout} />
+          </div>
+        </div>
 
-        <div className="button-wrapper-1">
-          {this.props.saveButton && (
-            <RaisedButton
-              className="save-material-buttons"
-              label="Save"
-              disabled={this.state.buttonsDisabled}
-              onClick={this.handleSave}
-              style={{ width: 140 }}
-            />
-          )}
-          {this.props.saveChangesButton && (
-            <RaisedButton
-              className="save-material-buttons"
-              label="Save Changes"
-              disabled={this.state.buttonsDisabled}
-              onClick={this.handleSaveChanges}
-              style={{ width: 140 }}
-            />
-          )}
-          <RaisedButton
-            href={fullUrl}
-            target="_blank"
-            className="twitter-material-button"
-            label="Twitter"
-            icon={<TwitterIcon />}
-            disabled={this.state.buttonsDisabled}
-            style={{ width: 140 }}
-          />
-        </div>
-        <div className="button-wrapper-2">
-          {this.props.deleteButton && (
-            <RaisedButton
-              label="Delete"
-              className="delete-button"
-              onClick={this.handleDeleteOpen}
-              style={{ width: 140 }}
-            />
-          )}
-          {this.props.backButton && (
-            <RaisedButton
-              label="Go Back"
-              className="back-button"
-              onClick={this.handleBack}
-              style={{ width: 140 }}
-            />
-          )}
-        </div>
-        <div className="button-wrapper-3">
-          <FlatButton label="Logout" onClick={this.handleLogout} />
-        </div>
         <Dialog
           title="Are you sure you'd like to delete this haiku?"
           actions={[
