@@ -6,24 +6,14 @@ import Sidebar from './sidebar';
 
 
 export default function Home() {
-    return (
-      <div>
-        <Header logoutHeader={true} />
-        <Sidebar />
-        <Compose
-          buttonsDisabled={true}
-          saveButton={true}
-        />
-      </div>
-    )
+  return (
+    <div>
+      <Header logoutHeader={true} />
+      <Sidebar />
+      <Compose
+        buttonsDisabled={true}
+        saveButton={true}
+      />
+    </div>
+  )
 }
-
-
-// const mapStateToProps = (state, props) => ({
-//   loginErrorMessage: state.loginErrorMessage,
-//   email: state.email,
-//   userId: state.userId,
-//   haikuId: state.haikuIdToEdit,
-// });
-
-// export default connect(mapStateToProps)(Home);
