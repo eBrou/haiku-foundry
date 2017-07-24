@@ -67,6 +67,11 @@
     font-size: 30px;
   }
 
+  .landing-text-1, .landing-text-2 {
+    margin-top: 45px;
+  }
+
+
   .landingDivs {
     width: 562.5px;
     height: 188.5px;
@@ -86,7 +91,15 @@
 
   .landing-text {
     font-size: 20px;
-    line-height: 3em;
+    line-height: 2em;
+  }
+
+  .landing-text-1, .landing-text-2 {
+    margin-top: 30px;
+  }
+
+  .landing-text-3 {
+    margin-top: 25px;
   }
 
   .landingDivs {
@@ -118,6 +131,20 @@
     line-height: 3em;
   }
 
+  .landing-text-1 {
+    margin-top: 15px;
+    line-height: 2em;
+  }
+
+  .landing-text-2 {
+    line-height: 2em;
+  }
+
+  .landing-text-3 {
+    margin-top: 15px;
+  }
+
+
   .landingDivs {
     margin: 20px auto 50px auto;
     width: 100%;
@@ -142,7 +169,7 @@
 
 @media only screen and (max-width: 350px) {
   .landing-text-div-1 {
-    padding-top: 0px;
+    /*padding-top: 0px;*/
   }
 
 }

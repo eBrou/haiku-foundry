@@ -44,7 +44,7 @@ export class Landing extends React.Component {
         <div className="landingDivs landingDiv2">
           <img src={rockGarden} className="logos rock-garden" alt="rock garden" />
           <div className="landingTextDivs landing-text-div2">
-            <h1 className="landing-text">Save them for later or share with others</h1>
+            <h1 className="landing-text landing-text-2">Save them for later or share with others</h1>
           </div>
         </div>
         <div className="landing-break" />
