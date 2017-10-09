@@ -18,19 +18,19 @@ Screen Shots
 ------------   
 **Landing Page:**
 
-![screenshot](http://i53.photobucket.com/albums/g48/tallericbucket/landing%20page_zpsaqkn1bl6.jpeg)
+![screenshot](./screenshots/landing-update.jpeg)
 
 **Login Page:**
 
-![screenshot](http://i53.photobucket.com/albums/g48/tallericbucket/login%20page_zpscioacvuj.jpeg)
+![screenshot](./screenshots/login.jpeg)
 
 **Editing on the Home Page:**
 
-![screenshot](http://i53.photobucket.com/albums/g48/tallericbucket/compose%20page_zpsj6lpzvba.jpeg)
+![screenshot](./screenshots/compose-update.png)
 
 **Saved Haiku Drawer Open on the Home Page:**
 
-![screenshot](http://i53.photobucket.com/albums/g48/tallericbucket/sidebar%20open_zpsqn7dcro7.jpeg)
+![screenshot](./screenshots/sidebar-open.jpeg)
 
 Technical
 ---------
