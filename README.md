@@ -22,7 +22,7 @@ Screen Shots
 
 **Login Page:**
 
-![screenshot](./screenshots/login.jpeg)
+![screenshot](./screenshots/login-page.jpeg)
 
 **Editing on the Home Page:**
 
